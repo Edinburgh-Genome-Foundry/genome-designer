@@ -1,12 +1,35 @@
 .scene-graph-container {
-  width: 400px;
-  height: 400px;
+  display: inline-block;
   border: 1px solid gray;
   position: relative;
 }
-.blob {
+
+.ViewGraph {
+  position: relative;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.ViewGraphNode {
   position: absolute;
-  width: 20px;
-  height: 20px;
-  background: red;
+  box-sizing: border-box;
+  transform-origin: 0 0;
+}
+
+.ViewGraphNode svg {
+  position: absolute;
+}
+
+.textInner {
+  background: transparent;
+  box-sizing: border-box;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+  text-align: center;
+  outline-style: none;
 }
