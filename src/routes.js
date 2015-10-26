@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, IndexRoute, Redirect } from 'react-router';
 import App from './containers/App';
 import AboutPage from './containers/AboutPage';
+import SceneGraphPage from './containers/SceneGraphPage';
 import SupportPage from './containers/SupportPage';
 import DashboardPage from './containers/DashboardPage';
 import ProjectPage from './containers/ProjectPage';
@@ -17,15 +18,14 @@ export default (
 
     <IndexRoute component={DashboardPage}/>
 
-    <Route path="/about"
-           component={AboutPage}/>
-    <Route path="/support"
-           component={SupportPage}/>
+    <Route path="/about" component={AboutPage}/>
 
-    <Route path="/project/:projectId"
-           component={ProjectPage}>
-      <Route path="/project/:projectId/:constructId"
-             component={ConstructPage}/>
+    <Route path="/scenegraph" component={SceneGraphPage}/>
+
+    <Route path="/support" component={SupportPage}/>
+
+    <Route path="/project/:projectId" omponent={ProjectPage}>
+      <Route path="/project/:projectId/:constructId" component={ConstructPage}/>
     </Route>
 
     <Redirect from="/project" to="/" />
