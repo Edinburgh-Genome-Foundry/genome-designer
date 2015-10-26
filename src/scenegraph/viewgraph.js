@@ -15,7 +15,7 @@ var Connection = require('./connection');
  * @param options
  * @constructor
  */
-var ViewGraph = function(options) {
+var ViewGraph = function (options) {
 
   // all viewgraphs start with new uuid, but it might be overwritten
   // if we are restored from the server
@@ -63,7 +63,7 @@ var ViewGraph = function(options) {
  * remove the given nodes from the graph
  * @return {[type]} [description]
  */
-ViewGraph.prototype.removeNodes = function(list) {
+ViewGraph.prototype.removeNodes = function (list) {
 
   // clear selections since they may contain some of the nodes
   if (this.ui) {
@@ -71,7 +71,7 @@ ViewGraph.prototype.removeNodes = function(list) {
   }
 
   // dispose will break connections, remove from parent etc
-  list.forEach(function(n) {
+  list.forEach(function (n) {
     n.dispose();
   });
 
@@ -86,12 +86,12 @@ ViewGraph.prototype.removeNodes = function(list) {
  * @param  {[type]} nodes [description]
  * @return {[type]}       [description]
  */
-ViewGraph.prototype.copyNodes = function(nodes) {
+ViewGraph.prototype.copyNodes = function (nodes) {
 
   U.ASSERT(nodes && nodes.length, 'did not expect an empty list');
 
   // first just create a serialized list of the given nodes and their children.
-  var list = nodes.map(function(node) {
+  var list = nodes.map(function (node) {
     return node.toObject();
   });
 
@@ -151,7 +151,7 @@ ViewGraph.prototype.copyNodes = function(nodes) {
  * @param  {[type]} nodes [description]
  * @return {[type]}       [description]
  */
-ViewGraph.prototype.replaceUUIDs = function(list) {
+ViewGraph.prototype.replaceUUIDs = function (list) {
 
   // build a hash of existing UUID's and their replacements
   var map = {};
@@ -187,14 +187,14 @@ ViewGraph.prototype.replaceUUIDs = function(list) {
  * @param {[Nodes]} a - array of view graph nodes to group
  * @return Node - the new group node
  */
-ViewGraph.prototype.groupNodes = function(a) {
+ViewGraph.prototype.groupNodes = function (a) {
 
   U.ASSERT(a && a.length, "Bad parameter");
 
   // first we should ungroup any groups within the selection.
   // Then we everything can be recombined in the new group if any
   var groupies = [];
-  a.forEach(function(node) {
+  a.forEach(function (node) {
 
     if (node.hasFlags(Node.Flags.Group)) {
       groupies = groupies.concat(this.ungroupNodes([node]));
@@ -209,7 +209,7 @@ ViewGraph.prototype.groupNodes = function(a) {
   // accumulate the AABB for all the nodes to be grouped
   var groupAABB = null;
 
-  groupies.forEach(function(node) {
+  groupies.forEach(function (node) {
     node.update();
     var nodeAABB = node.getAABB();
     groupAABB = groupAABB ? groupAABB.union(nodeAABB) : nodeAABB;
@@ -240,7 +240,7 @@ ViewGraph.prototype.groupNodes = function(a) {
 
   // add each groupies to the group node and adjust its translation accordinginly
 
-  groupies.forEach(function(node) {
+  groupies.forEach(function (node) {
 
     U.ASSERT(node.parent, "Node has no parent");
     node.detach();
@@ -263,7 +263,7 @@ ViewGraph.prototype.groupNodes = function(a) {
  * @param node
  * @return {[Array]Node} - the ungrouped nodes
  */
-ViewGraph.prototype.ungroupNodes = function(a) {
+ViewGraph.prototype.ungroupNodes = function (a) {
 
   // bail if no nodes
   if (!a || !a.length) {
@@ -275,12 +275,12 @@ ViewGraph.prototype.ungroupNodes = function(a) {
 
   var groupies = [];
 
-  a.forEach(function(groupNode) {
+  a.forEach(function (groupNode) {
 
     if (groupNode.hasFlags(Node.Flags.Group)) {
 
       // work on a copy of the child list since we are going to modify
-      _.each(groupNode.children.slice(), function(child) {
+      _.each(groupNode.children.slice(), function (child) {
 
         // return the child to world space, the procedure for this may vary by type e.g. lines
         // and rectangles
@@ -305,13 +305,13 @@ ViewGraph.prototype.ungroupNodes = function(a) {
  * when the user makes multiple selections temporary groups are formed. This method ungroups
  * all temporary groups e.g. when the user clicks outside the group
  */
-ViewGraph.prototype.ungroupTemporaryGroups = function() {
+ViewGraph.prototype.ungroupTemporaryGroups = function () {
 
-  this.root.children.forEach(function(node) {
+  this.root.children.forEach(function (node) {
     if (node.hasFlags(Node.Flags.Group, Node.Flags.TGroup)) {
       var ungrouped = this.ungroupNodes([node]);
       // update the ungrouped
-      ungrouped.forEach(function(n) {
+      ungrouped.forEach(function (n) {
         n.update();
       });
     }
@@ -323,7 +323,7 @@ ViewGraph.prototype.ungroupTemporaryGroups = function() {
  * quadrant ( since nodes are transformed via the center and we always
  * want 0,0 at top left ).
  */
-ViewGraph.prototype.updateGraphSize = function() {
+ViewGraph.prototype.updateGraphSize = function () {
 
   // set size of graph element to accommodate width/height * scale
   // 2px is added to accomodate the bottom/right borders which, to the user
@@ -362,7 +362,7 @@ ViewGraph.prototype.updateGraphSize = function() {
  *                                 of a node to the traversal. It should return true to include the children
  *                                 or false to exclude them.
  */
-ViewGraph.prototype.traverseInOrder = function(start, iteratee, filter, childFilter) {
+ViewGraph.prototype.traverseInOrder = function (start, iteratee, filter, childFilter) {
 
   U.ASSERT(start && iteratee, "Bad parameter");
 
@@ -389,14 +389,14 @@ ViewGraph.prototype.traverseInOrder = function(start, iteratee, filter, childFil
  * flatten a node or array of nodes, return the nodes and all contained children
  * @return {Array of Node}
  */
-ViewGraph.prototype.flattenNodes = function(a) {
+ViewGraph.prototype.flattenNodes = function (a) {
 
   var flatList = [];
   var nodes = _.isArray(a) ? a : [a];
-  nodes.forEach(function(node) {
-    this.traverseInOrder(node, function(n) {
+  nodes.forEach(function (node) {
+    this.traverseInOrder(node, function (n) {
       flatList.push(n);
-    }, function(n) {
+    }, function (n) {
       // ignore the root
       return !n.hasFlags(Node.Flags.Root);
     });
@@ -409,14 +409,14 @@ ViewGraph.prototype.flattenNodes = function(a) {
  * get the AABB for all nodes in the graph. If no nodes are present the returned value is null
  * @return {G.Box}
  */
-ViewGraph.prototype.getAABB = function() {
+ViewGraph.prototype.getAABB = function () {
 
   var box;
-  this.traverseInOrder(this.root, function(n) {
+  this.traverseInOrder(this.root, function (n) {
 
     box = box ? box.union(n.getAABB()) : n.getAABB();
 
-  }, function(n) {
+  }, function (n) {
 
     // ignore the root, it always has bounds of 0,0,0,0
     return !n.hasFlags(Node.Flags.Root);
@@ -430,10 +430,10 @@ ViewGraph.prototype.getAABB = function() {
  * @param  {String} uuid
  * @return {Node | null}
  */
-ViewGraph.prototype.findNodeByUUID = function(uuid) {
+ViewGraph.prototype.findNodeByUUID = function (uuid) {
 
   var node = null;
-  this.traverseInOrder(this.root, function(n) {
+  this.traverseInOrder(this.root, function (n) {
     if (n.uuid === uuid) {
       node = n;
       return true;
@@ -446,7 +446,7 @@ ViewGraph.prototype.findNodeByUUID = function(uuid) {
  * set view scale of graph, which changes the size of the element that the graph is rendered into
  * @param v
  */
-ViewGraph.prototype.setScale = function(v) {
+ViewGraph.prototype.setScale = function (v) {
 
   // scaling is applied to the root node of the graph BUT not by the usual
   // transform property. View transformation does not get inserted into the graph data.
@@ -461,7 +461,7 @@ ViewGraph.prototype.setScale = function(v) {
  * return our limits as a box
  * @return {G.Box}
  */
-ViewGraph.prototype.getBounds = function() {
+ViewGraph.prototype.getBounds = function () {
   return new G.Box(0, 0, this.width, this.height);
 };
 
@@ -469,7 +469,7 @@ ViewGraph.prototype.getBounds = function() {
  * true if the node is partially within the graph
  * @return {Boolean} [description]
  */
-ViewGraph.prototype.isNodeVisible = function(node) {
+ViewGraph.prototype.isNodeVisible = function (node) {
 
   var b1 = this.getBounds();
   var b2 = node.getAABB().inflate(C.SW, C.SW);
@@ -481,7 +481,7 @@ ViewGraph.prototype.isNodeVisible = function(node) {
  * is nicely positioned at the top left of the coordinate space.
  * @return {[type]} [description]
  */
-ViewGraph.prototype.normalizeGraph = function() {
+ViewGraph.prototype.normalizeGraph = function () {
 
   // get the AABB of all visible elements
   var aabb = this.getAABB();
@@ -496,12 +496,12 @@ ViewGraph.prototype.normalizeGraph = function() {
 
   // move all elements that are immediate children of the root to the top left.
   // All others will be children of these and will move with them.
-  this.root.children.forEach(function(n) {
+  this.root.children.forEach(function (n) {
     n.moveTo(n.transform.translate.sub(new G.Vector2D(aabb.x, aabb.y)));
   }, this);
 
   // update connections on all nodes
-  this.traverseInOrder(this.root, function(n) {
+  this.traverseInOrder(this.root, function (n) {
     n.updateConnections();
   });
 
@@ -524,9 +524,10 @@ ViewGraph.prototype.windowSize = function () {
  * space without altering the aspect ratio
  * @return {[type]} [description]
  */
-ViewGraph.prototype.scaleToWindow = function() {
+ViewGraph.prototype.scaleToWindow = function () {
 
-  var b = this.getBounds(), w = this.windowSize();
+  var b = this.getBounds(),
+    w = this.windowSize();
   var size = G.Vector2D.scaleToWindow(b.w, b.h, w.x, w.y, true);
 
   // apply necessary scale to graph
@@ -537,7 +538,7 @@ ViewGraph.prototype.scaleToWindow = function() {
  * get a matrix representing the current view transforms. This is applied
  * to the root node which is dimensionless and positioned at 0,0
  */
-ViewGraph.prototype.getViewMatrix = function() {
+ViewGraph.prototype.getViewMatrix = function () {
 
   var t = new G.Transform2D();
   t.scale = new G.Vector2D(this.scale, this.scale);
@@ -556,7 +557,7 @@ ViewGraph.prototype.isEmpty = function () {
 /**
  * dispose
  */
-ViewGraph.prototype.dispose = function() {
+ViewGraph.prototype.dispose = function () {
 
   U.ASSERT(!this.disposed, "ViewGraph already disposed");
 

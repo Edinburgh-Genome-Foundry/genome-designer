@@ -94,7 +94,7 @@ Node.Flags = {
  * @param  {[type]} f [description]
  * @return {[type]}   [description]
  */
-Node.FlagsToString = function(f) {
+Node.FlagsToString = function (f) {
 
   var fs = {
 
@@ -106,7 +106,7 @@ Node.FlagsToString = function(f) {
 
   var s;
 
-  _.each(_.keys(fs), function(v) {
+  _.each(_.keys(fs), function (v) {
     if (f & v) {
       s = _.sprintf('%s %s', s || '', fs[v]);
     }
@@ -152,7 +152,7 @@ Node.prototype.toObject = function () {
  * Flags are converted to string representation.
  * @return {[type]} [description]
  */
-Node.prototype.debugStr = function() {
+Node.prototype.debugStr = function () {
 
   // serialize
   var s = this.toObject();
@@ -186,7 +186,7 @@ Node.prototype.debugStr = function() {
   while (stack.length) {
     var n = stack.pop();
     n.flags = Node.FlagsToString(n.flags);
-    omit.forEach(function(p) {
+    omit.forEach(function (p) {
       delete n[p];
     })
     stack = stack.concat(n.nodes);
@@ -250,7 +250,7 @@ Node.prototype.isEditorOpen = function () {
  * return name of the handle at the given location of null
  * @param p
  */
-Node.prototype.getHandleAt = function(p) {
+Node.prototype.getHandleAt = function (p) {
   return this.isEditorOpen() ? this.editor.getHandleAt(p) : null;
 };
 
@@ -381,7 +381,7 @@ Node.prototype.getTransformationMatrix = function () {
  * return the sum of our rotation plus all parents modulo 360
  * @return {[type]} [description]
  */
-Node.prototype.getGlobalRotation = function() {
+Node.prototype.getGlobalRotation = function () {
   return (this.transform.rotate + this.parent ? this.parent.getGlobalRotation() : 0) % 360;
 };
 
@@ -539,16 +539,17 @@ Node.prototype.set = function (obj) {
       }
       break;
 
-    // you might set the view graph is attaching a serialized snippet to a live graph.
-    // Ensure all our children get the viewGraph as well
-    case "viewGraph": {
+      // you might set the view graph is attaching a serialized snippet to a live graph.
+      // Ensure all our children get the viewGraph as well
+    case "viewGraph":
+      {
 
-      this.viewGraph = value;
-      this.viewGraph.traverseInOrder(this, function(n) {
-        n.viewGraph = this.viewGraph;
-      }.bind(this));
-    }
-    break;
+        this.viewGraph = value;
+        this.viewGraph.traverseInOrder(this, function (n) {
+          n.viewGraph = this.viewGraph;
+        }.bind(this));
+      }
+      break;
 
       // nodes is set when deserializing from the server, it is our children
     case "nodes":
@@ -647,9 +648,9 @@ Node.prototype.set = function (obj) {
           this.line = new G.LineSegment(value);
         } else {
           if (_.isArray(value)) {
-              U.ASSERT(value.length === 2);
-              this.start = value[0].clone();
-              this.end = value[1].clone();
+            U.ASSERT(value.length === 2);
+            this.start = value[0].clone();
+            this.end = value[1].clone();
           } else {
             // this ensure we can accept almost anything with boxy properties
             var b = new G.Box(value);
@@ -715,7 +716,7 @@ Node.prototype.appendTo = function (parent) {
  * @param  {[type]} child [description]
  * @return {[type]}       [description]
  */
-Node.prototype.getChildIndex = function(child) {
+Node.prototype.getChildIndex = function (child) {
 
   var index = this.children.indexOf(child);
   U.ASSERT(index >= 0, 'expected child to be in the children list');
@@ -727,7 +728,7 @@ Node.prototype.getChildIndex = function(child) {
  * @param  {[type]} index [description]
  * @return {[type]}       [description]
  */
-Node.prototype.insertAt = function(child, index) {
+Node.prototype.insertAt = function (child, index) {
 
   U.ASSERT(!child.parent, "Node is already parented");
   U.ASSERT(index >= 0 && index <= this.children.length, 'bad index');
