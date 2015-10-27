@@ -18,8 +18,8 @@ var SmartConnector = function (viewGraph) {
   this.autoRotateText = true;
 
   // end/start marker styles for lines / connectors
-  this.endMarkerStyle = C.markerStyles.arrow;
-  this.startMarkerStyle = C.markerStyles.arrow;
+  this.endMarkerStyle = C.markerStyles.circle;
+  this.startMarkerStyle = C.markerStyles.circle;
 
   // flag as connector
   this.addFlags(Node.Flags.Connector);

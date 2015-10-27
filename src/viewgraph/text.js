@@ -25,8 +25,11 @@ Text.prototype.update = function() {
   // background is always transparent
   this.el.style.background = 'transparent';
 
-  // base font size must be shared with the quill editor
-  this.el.style.fontSize = '30px';
+  // default font size
+  this.el.style.fontSize = this.node.fontSize + 'px';
+
+  // default font family
+  this.el.style.fontFamily = this.node.font;
 
   // apply padding equal to the stroke width of the node so that the text
   // is always inset from the stroked outline ( by a minimum of 2px)

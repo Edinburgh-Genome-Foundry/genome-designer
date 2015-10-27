@@ -69,7 +69,8 @@ var Node = function (viewGraph) {
   // default text
   this.text = '';
   this.color = new Color('black');
-  this.fontSize = 20;
+  this.fontSize = 13;
+  this.font = 'Arial';
   this.autoRotateText = false;
   this.textBackground = 'transparent';
 

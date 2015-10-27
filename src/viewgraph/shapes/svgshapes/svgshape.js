@@ -156,8 +156,8 @@ S.SvgShape.prototype.updateMarker = function (el, style, i) {
   // create the end marker as necessary
   if (style !== this.markerStyles[i]) {
 
-    //this.markerStyles[i] = style;
-    this.markerStyles[i] = C.markerStyles.arrow;
+    this.markerStyles[i] = style;
+    //this.markerStyles[i] = C.markerStyles.arrow;
 
     // if there is an existing end marker remove it and nullify
     this.markerEls[i] = D.removeElement(this.markerEls[i]);

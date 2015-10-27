@@ -21,65 +21,76 @@ export class SceneGraphPage extends Component {constructor (props) {
 
   componentDidMount () {
 
+    // empty scene graph
     this.sceneGraph = new ViewGraph({
-      width: 600,
-      height: 600,
+      width: 1024,
+      height: 768,
       parent: this.refs
         .sceneGraphContainer
         .getDOMNode()
     });
+    // add a grid of shapes
+    var X = 5,
+      Y = 5;
+    this.nodes = [];
 
-    let A = new Node(this.sceneGraph);
-    A.set({
-      parent: this.sceneGraph.root,
-      glyph: "Rectangle",
-      geometry: new G.Box(20, 20, 200, 100),
-      fill: 'whitesmoke',
-      stroke: 'dodgerblue',
-      strokeWidth: 5,
-      text: "Rectangle A"
-    });
+    for (let y = 0; y < Y; y += 1) {
+      for (let x = 0; x < X; x += 1) {
+        let n = this.nodes[y * X + x] = new Node(this.sceneGraph);
+        n.set({
+          parent: this.sceneGraph.root,
+          glyph: "Rectangle",
+          geometry: new G.Box(20 + x * 200, 20 + y * 150, 100, 100),
+          fill: 'whitesmoke',
+          stroke: 'dodgerblue',
+          strokeWidth: 2,
+          text: 'Rectangle ' + x + ' ,' + y
+        });
+        n.update();
+      }
+    }
 
-    let B = new Node(this.sceneGraph);
-    B.set({
-      parent: this.sceneGraph.root,
-      glyph: "Rectangle",
-      geometry: new G.Box(380, 450, 200, 100),
-      fill: 'whitesmoke',
-      stroke: 'dodgerblue',
-      strokeWidth: 5,
-      text: "Rectangle B"
-    });
+    // connect nodes to the node to their right and below
+    for (let x = 0; x < X - 1; x += 1) {
+      for (let y = 0; y < Y - 1; y += 1) {
+        var a = this.nodes[y * X + x];
+        var b = this.nodes[(y + 1) * X + x + 1];
+        let c = new SmartConnector(this.sceneGraph);
+        c.set({
+          parent: this.sceneGraph.root,
+          glyph: "SmartConnector",
+          geometry: new G.Box(0, 0, 0, 0),
+          stroke: 'orange',
+          strokeWidth: 2
+        });
 
-    let C = new SmartConnector(this.sceneGraph);
-    C.set({
-      parent: this.sceneGraph.root,
-      glyph: "SmartConnector",
-      geometry: new G.Box(50, 50, 400, 400),
-      stroke: 'orange',
-      strokeWidth: 5
-    });
+        let connection = new Connection(c, new G.Vector2D(), a, new G.Vector2D(1, 0.75));
+        c.setConnection('start', connection);
 
-    var connection = new Connection(C, new G.Vector2D(), A, new G.Vector2D(0.5, 1));
-    C.setConnection('start', connection);
+        connection = new Connection(c, new G.Vector2D(), b, new G.Vector2D(0, 0.25));
+        c.setConnection('end', connection);
 
-    connection = new Connection(C, new G.Vector2D(), B, new G.Vector2D(0, 0.5));
-    C.setConnection('end', connection);
+        c.update();
 
-    let D = new SmartConnector(this.sceneGraph);
-    D.set({
-      parent: this.sceneGraph.root,
-      glyph: "SmartConnector",
-      geometry: new G.Box(50, 50, 400, 400),
-      stroke: 'orange',
-      strokeWidth: 5
-    });
+        b = this.nodes[y * X + x + 1];
+        c = new SmartConnector(this.sceneGraph);
+        c.set({
+          parent: this.sceneGraph.root,
+          glyph: "SmartConnector",
+          geometry: new G.Box(0, 0, 0, 0),
+          stroke: 'red',
+          strokeWidth: 2
+        });
 
-    connection = new Connection(D, new G.Vector2D(), A, new G.Vector2D(1, 0.5));
-    D.setConnection('start', connection);
+        connection = new Connection(c, new G.Vector2D(), a, new G.Vector2D(0.5, 1));
+        c.setConnection('start', connection);
 
-    connection = new Connection(D, new G.Vector2D(), B, new G.Vector2D(0.5, 0));
-    D.setConnection('end', connection);
+        connection = new Connection(c, new G.Vector2D(), b, new G.Vector2D(0.5, 1));
+        c.setConnection('end', connection);
+
+        c.update();
+      }
+    }
 
     this.sceneGraph
       .root
@@ -90,17 +101,9 @@ export class SceneGraphPage extends Component {constructor (props) {
   render () {
     return (
       <div>
-        <h1>Scene Graph Test Page</h1>
         <div className="scene-graph-container" ref="sceneGraphContainer"></div>
-        <br></br>
-        <button onClick={this
-          .onClick
-          .bind(this)}>Render</button>
       </div>
     );
-  }
-  onClick () {
-    this.render();
   }
 }
 
