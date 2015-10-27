@@ -1,7 +1,7 @@
 var _ = require('underscore');
-var str = require('underscore.string');
 var uuid = require('node-uuid');
 
+var str = require('./underscore.string');
 var G = require('./geometry');
 var Group = require('./group');
 var Node = require('./node');

@@ -39,6 +39,14 @@
   user-select: none;
 }
 
+.ViewGraphNode canvas {
+  position: absolute;
+  pointer-events: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+
 .textInner {
   background: transparent;
   box-sizing: border-box;

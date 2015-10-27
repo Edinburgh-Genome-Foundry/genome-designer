@@ -13,6 +13,7 @@ var RightRibbon = require('./svgshapes/rightribbon');
 var LeftRibbon = require('./svgshapes/leftribbon');
 var Triangle = require('./svgshapes/triangle');
 var HTMLShape = require('./htmlshapes/htmlshape');
+var Construct = require('./canvasshapes/construct');
 
 // canvas shapes
 var Group = require('./canvasshapes/group');
@@ -36,6 +37,7 @@ module.exports = function(name, node) {
     case 'Triangle': return new Triangle(node);
     case 'Group': return new Group(node);
     case 'HTMLShape' : return new HTMLShape(node);
+    case 'Construct' : return new Construct(node);
     default: {
       throw new Error('Unknown Glyph Name:' + name);
     }
