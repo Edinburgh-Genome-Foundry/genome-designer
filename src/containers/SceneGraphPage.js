@@ -53,10 +53,10 @@ export class SceneGraphPage extends Component {
       for (let y = 0; y < Y - 1; y += 1) {
         var a = this.nodes[y * X + x];
         var b = this.nodes[(y + 1) * X + x + 1];
-        this.connectBoxes(a, new G.Vector2D(1, 0.75), b, new G.Vector2D(0, 0.25), 'orange');
+        this.connectBoxes(a, new G.Vector2D(1, 0.75), b, new G.Vector2D(0, 0.25), 'lightgray');
 
         b = this.nodes[y * X + x + 1];
-        this.connectBoxes(a, new G.Vector2D(0.5, 1), b, new G.Vector2D(0.5, 1), 'red');
+        this.connectBoxes(a, new G.Vector2D(0.5, 1), b, new G.Vector2D(0.5, 1), 'lightgray');
 
       }
     }
@@ -77,12 +77,13 @@ export class SceneGraphPage extends Component {
     let n = new Node(this.sceneGraph);
     n.set({
       parent: this.sceneGraph.root,
-      glyph: "Rectangle",
+      glyph: "Lozenge",
       geometry: new G.Box(x, y, w, h),
       fill: 'whitesmoke',
       stroke: 'dodgerblue',
       strokeWidth: 2,
-      text: text
+      text: text,
+      opacity: 0.75
     });
     return n;
   }

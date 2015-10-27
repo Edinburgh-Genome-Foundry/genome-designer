@@ -67,12 +67,22 @@ export default class {
   };
 
   onMouseDown(e) {
-    let top = this.getTopMostGlyphAt(this.mousePosition(e), ['Rectangle', 'Construct']);
+    var p = this.mousePosition(e);
+    let top = this.getTopMostGlyphAt(p, ['Rectangle', 'Construct', 'Lozenge']);
     if (top) {
       this.drag = top;
       this.drag.set({
         strokeWidth: this.drag.strokeWidth << 1
       });
+      this.drag.edgesIn.forEach(function(c) {
+        c.source.set({
+          stroke: 'orange'
+        });
+        c.source.update();
+      }.bind(this));
+
+      this.dragTranslate = this.drag.transform.translate.clone();
+      this.startMouse = p;
       e.preventDefault();
     }
   }
@@ -80,7 +90,8 @@ export default class {
   onMouseMove(e) {
     if (this.drag) {
       let p = this.mousePosition(e);
-      this.drag.moveTo(p);
+      let delta = p.sub(this.startMouse);
+      this.drag.moveTo(this.dragTranslate.add(delta));
       this.drag.updateConnections();
       this.drag.updateBranch();
       e.preventDefault();
@@ -92,6 +103,12 @@ export default class {
       this.drag.set({
         strokeWidth: this.drag.strokeWidth >> 1
       });
+      this.drag.edgesIn.forEach(function(c) {
+        c.source.set({
+          stroke: 'lightgray'
+        });
+        c.source.update();
+      }.bind(this));
       this.drag.update();
       this.drag = null;
       e.preventDefault();
