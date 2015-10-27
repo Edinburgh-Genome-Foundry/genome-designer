@@ -2,11 +2,24 @@
   display: inline-block;
   border: 1px solid lightgray;
   position: relative;
+  margin-top: 1rem;
+  width: 1024px;
+  height: 768px;
+  overflow: auto;
 }
 
+.dragui {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 4096px;
+  height: 3072px;
+  background-color: transparent;
+}
+
+
 .ViewGraph {
-  position: relative;
-  margin: 0 auto;
+  position: absolute;
   overflow: hidden;
 }
 
@@ -14,10 +27,16 @@
   position: absolute;
   box-sizing: border-box;
   transform-origin: 0 0;
+  -webkit-user-select: none;
+  user-select: none;
+  pointer-events: none;
 }
 
 .ViewGraphNode svg {
   position: absolute;
+  pointer-events: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .textInner {
@@ -32,4 +51,8 @@
   white-space: pre-wrap;
   text-align: center;
   outline-style: none;
+  -webkit-user-select: none;
+  user-select: none;
+  pointer-events: none;
+  cursor: default;
 }
