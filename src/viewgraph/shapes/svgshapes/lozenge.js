@@ -19,6 +19,7 @@ Lozenge.prototype.render = function (b) {
   // To calculate where the end cap intersects the top/bottom edge we use
   // some basic Pythagoras. We also need to angle subtended by the ends of
   // the cap and the center of the circle.
+  // the cap and the center of the circle.
   var r = b.h * 2;
   var x = b.h / 2;
   var t = Math.sqrt((r * r) - (x * x));
