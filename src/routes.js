@@ -8,6 +8,7 @@ import SupportPage from './containers/SupportPage';
 import DashboardPage from './containers/DashboardPage';
 import ProjectPage from './containers/ProjectPage';
 import ConstructPage from './containers/ConstructPage';
+import MaterialPage from './containers/MaterialPage';
 
 //Routes are specified as a separate component so they can hotloaded
 //see: https://github.com/rackt/redux-router/issues/44#issuecomment-140198502
@@ -24,6 +25,8 @@ export default (
     <Route path="/scenegraph" component={SceneGraphPage}/>
 
     <Route path="/canvasgraph" component={CanvasTestPage}/>
+
+    <Route path="/material" component={MaterialPage}/>
 
     <Route path="/support" component={SupportPage}/>
 
