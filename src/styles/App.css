@@ -1,16 +1,8 @@
-@import '../../node_modules/normalize.css/normalize.css';
-@import 'variables.css';
-@import 'base.css';
-
-.App {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background-color: var(--GlobalNav-backgroundColor);
+/*submit button in app header*/
+.app-submit {
+  margin-left: 0.5rem;
 }
-
-.App-pageContent {
-  flex-grow: 1;
-  display: flex;
-
+/* so the content doesn't go below the footer */
+body {
+  padding-bottom: 50px;
 }
