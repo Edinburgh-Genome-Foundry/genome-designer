@@ -1,59 +1,66 @@
 import React, { Component, PropTypes } from 'react';
-
 import styles from '../styles/ProjectSelect.css';
 import withStyles from '../decorators/withStyles';
 
+/**
+ * use a decorator to pre-render our CSS styles into the DOM
+ */
 @withStyles(styles)
+/**
+ * ProjectSelect ctor
+ * @constructor
+ */
 export default class ProjectSelect extends Component {
-  constructor(props) {
-    super(props);
-  }
 
+  /**
+   * validation for property types
+   * @type {Object}
+   */
   static propTypes = {
     value: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired
   };
 
+  /**
+   * when our properties change
+   * @param  {Object} nextProps  - change set
+   */
   componentWillReceiveProps(nextProps) {
     if (nextProps.value !== this.props.value) {
-      this.setInputValue(nextProps.value);
+      this.refs.input.value = nextProps.value;
     }
   }
 
-  getInputValue() {
-    return this.refs.input.value;
+  /**
+   * The input box and button are part of form. Handle submission
+   * by passing the new value to our change handler and preventing
+   * actual submission of the form
+   * @param  {SyntheticEvent} e
+   */
+  handleSubmit = (e) => {
+    this.props.onChange(this.refs.input.value);
+    e.preventDefault();
   }
 
-  setInputValue(val) {
-    // Generally mutating DOM is a bad idea in React components,
-    // but doing this for a single uncontrolled field is less fuss
-    // than making it controlled and maintaining a state for it.
-    this.refs.input.value = val;
-  }
-
-  handleKeyUp = (e) => {
-    if (e.keyCode === 13) {
-      this.handleGoClick();
-    }
-  }
-
-  handleGoClick =() => {
-    this.props.onChange(this.getInputValue());
-  }
-
+  /**
+   * render the project selector
+   * @return {ReactElement}
+   */
   render() {
     return (
       <div className="ProjectSelect">
-        <input size="30"
-               ref="input"
-               className="ProjectSelect-input"
-               placeholder="Enter Project ID (dev)"
-               defaultValue={this.props.value}
-               onKeyUp={this.handleKeyUp} />
-        {/* <button onClick={this.handleGoClick}>
-          Go!
-        </button> */}
+        <form onSubmit={this.handleSubmit}>
+          <div className="form-group">
+            <input size="30"
+                   className="form-control"
+                   ref="input"
+                   placeholder="Enter Project ID (dev)"
+                   defaultValue={this.props.value}/>
+          </div>
+          <button type="submit" className="btn btn-primary">Search</button>
+        </form>
       </div>
+
     );
   }
 }

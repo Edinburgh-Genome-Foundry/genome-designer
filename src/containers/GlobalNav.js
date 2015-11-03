@@ -35,9 +35,7 @@ class GlobalNav extends Component {
 
   render() {
     return (
-      <div className="GlobalNav">
-          <Link className="GlobalNav-title"
-                to="/">Home</Link>
+      <div>
         <ProjectSelect value={this.props.inputValue}
                        onChange={this.handleChange} />
 
