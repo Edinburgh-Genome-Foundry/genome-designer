@@ -18,7 +18,7 @@ const PartDefinition = InstanceDefinition.extend({
     `Source (Inventory) ID of the Part`
   ],
   annotations: [
-    fields.arrayOf(validators.id()).required,
+    fields.arrayOf(fields.id()).required,
     `A list of Annotations associated with the Part`
   ]
 });
