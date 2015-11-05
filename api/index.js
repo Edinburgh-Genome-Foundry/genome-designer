@@ -9,7 +9,7 @@ var execSync = require('sync-exec');
 var router = express.Router();
 
 /*
-fetch('/api/project?id=f154171f-b158-48eb-a11f-6cddeaecea12',
+fetch('/api/project?id=5b4d7ebb-3b42-494c-8ed4-13c5726d5953',
    { 
       method:'get',
       type:'json'
@@ -27,7 +27,7 @@ fetch('/api/project?id=f154171f-b158-48eb-a11f-6cddeaecea12',
 fetch('/api/project',
    { 
       method:'put',
-      body:'{name:"jack"}'
+      body:JSON.stringify({name:"jack"})
     })
 .then(function(res) 
    { 
@@ -49,6 +49,7 @@ router.get('/project', function (req, res) {
         try {
             console.log(output);
             result = JSON.parse(output);
+            result.id = req.query.id;
         } catch (e) {
             result.error = e.message;
             console.log(e);
@@ -66,7 +67,7 @@ router.put('/project', function (req, res) {
     console.log(decodeURI(chunk));
     var id = uuid.v4();
     try {
-        execSync('redis-cli set ' + id + ' ' + chunk);
+        execSync('redis-cli set ' + id + ' \'' + chunk + '\'');
         result.id = id;
         console.log(id);
     } catch (e) {
@@ -80,21 +81,22 @@ router.put('/project', function (req, res) {
 router.post('/project', function (req, res) {
   var result = {};
   console.log(req.query);
-  req.on('data', function (chunk) {
-    console.log(decodeURI(chunk));
-  });
   if (req.query.id) {
     var id = req.query.id;
     var output = execSync('redis-cli get ' + req.query.id).stdout;
     if (output.length > 0) {
-        try {
-            console.log(req.query);
-            execSync('redis-cli set ' + id + ' ' + JSON.stringify(req.query));
-            result.id = id;    
-        } catch (e) {
-            result.error = e.message;
-            console.log(e);
-        }
+        req.on('data', function (chunk) {
+            var id = uuid.v4();
+            try {
+                execSync('redis-cli set ' + id + ' \'' + chunk + '\'');
+                result.id = id;
+                console.log(id);
+            } catch (e) {
+                result.error = e.message;
+                console.log(e);
+            }  
+            res.json(result);
+          });
     } else {
         result.error = "ID does not exist";
         console.log("ID does not exist");
