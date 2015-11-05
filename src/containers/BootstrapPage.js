@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import styles from '../styles/BootstrapPage.css';
 import withStyles from '../decorators/withStyles';
 import PopupWindow from '../components/PopupWindow/PopupWindow';
+import Menu from '../components/Menu/Menu';
+import MenuItem from '../components/Menu/MenuItem';
+import MenuSeparator from '../components/Menu/MenuSeparator';
 import Login from '../components/Login';
 
 /**
@@ -31,6 +34,10 @@ class BootstrapPage extends Component {
     });
   }
 
+  onMenuItem = () => {
+    console.log("Menu Clicked");
+  }
+
   render() {
 
     var login = this.state.loginVisible ? <PopupWindow
@@ -56,19 +63,32 @@ class BootstrapPage extends Component {
             <button className="btn btn-warning">Warning</button>
             <button className="btn btn-danger">Danger</button>
           </div>
-          <br></br>
-          <div className="btn-toolbar">
-            <button className="btn btn-xs btn-default">Default</button>
-            <button className="btn btn-xs btn-primary">Primary</button>
-            <button className="btn btn-xs btn-success">Success</button>
-            <button className="btn btn-xs btn-info">Info</button>
-            <button className="btn btn-xs btn-warning">Warning</button>
-            <button className="btn btn-xs btn-danger">Danger</button>
-          </div>
+
         </div>
-        <div className="login-container">
+
+        <div>
           <button className="btn btn-success" onClick={this.showLogin}>Show Login</button>
           {login}
+        </div>
+        <br></br>
+        <div className="btn-toolbar">
+
+          <Menu title="File" menuItems={[
+            <MenuItem text="Account" onClick={this.onMenuItem}></MenuItem>,
+            <MenuItem text="Profile" onClick={this.onMenuItem}></MenuItem>,
+            <MenuSeparator ref="sep1"></MenuSeparator>,
+            <MenuItem text="Sign Out" onClick={this.onMenuItem}></MenuItem>
+          ]}></Menu>
+
+          <Menu title="Edit" menuItems={[
+            <MenuItem text="Cut" onClick={this.onMenuItem}></MenuItem>,
+            <MenuItem text="Copy" onClick={this.onMenuItem}></MenuItem>,
+            <MenuItem text="Paste" onClick={this.onMenuItem}></MenuItem>,
+            <MenuSeparator ref="sep2"></MenuSeparator>,
+            <MenuItem text="Delete" onClick={this.onMenuItem}></MenuItem>,
+            <MenuItem text="Select All" onClick={this.onMenuItem}></MenuItem>
+          ]}></Menu>
+
         </div>
       </div>
     );
