@@ -5,4 +5,5 @@
 /* so the content doesn't go below the footer */
 body {
   padding-bottom: 50px;
+  position: relative;
 }

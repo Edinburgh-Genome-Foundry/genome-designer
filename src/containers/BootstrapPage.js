@@ -3,6 +3,8 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import styles from '../styles/BootstrapPage.css';
 import withStyles from '../decorators/withStyles';
+import PopupWindow from '../components/PopupWindow/PopupWindow';
+import Login from '../components/Login';
 
 /**
  * just for testing bootstrap, hence the lack of comments
@@ -10,7 +12,33 @@ import withStyles from '../decorators/withStyles';
 @withStyles(styles)
 class BootstrapPage extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      loginVisible: false
+    }
+  }
+
+  onCloseLogin = (e) => {
+    this.setState({
+      loginVisible: false
+    });
+  }
+
+  showLogin = () => {
+    this.setState({
+      loginVisible: true
+    });
+  }
+
   render() {
+
+    var login = this.state.loginVisible ? <PopupWindow
+              onClose={this.onCloseLogin}
+              title="Test Login Window"
+              client={<Login onClose={this.onCloseLogin}></Login>}>
+            </PopupWindow>: null;
+
     return (
       <div className="container">
         <div className="well">
@@ -38,34 +66,10 @@ class BootstrapPage extends Component {
             <button className="btn btn-xs btn-danger">Danger</button>
           </div>
         </div>
-        <form className="form-horizontal form-example">
-          <div className="form-group">
-            <label for="inputEmail3" className="col-sm-2 control-label">Email</label>
-            <div className="col-sm-10">
-              <input type="email" className="form-control" id="inputEmail3" placeholder="Email"></input>
-            </div>
-          </div>
-          <div className="form-group">
-            <label for="inputPassword3" className="col-sm-2 control-label">Password</label>
-            <div className="col-sm-10">
-              <input type="password" className="form-control" id="inputPassword3" placeholder="Password"></input>
-            </div>
-          </div>
-          <div className="form-group">
-            <div className="col-sm-offset-2 col-sm-10">
-              <div className="checkbox">
-                <label>
-                  <input type="checkbox"> Remember me</input>
-                </label>
-              </div>
-            </div>
-          </div>
-          <div className="form-group">
-            <div className="col-sm-offset-2 col-sm-10">
-              <button type="submit" className="btn btn-primary">Sign in</button>
-            </div>
-          </div>
-        </form>
+        <div className="login-container">
+          <button className="btn btn-success" onClick={this.showLogin}>Show Login</button>
+          {login}
+        </div>
       </div>
     );
   }

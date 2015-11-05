@@ -1,0 +1,21 @@
+.PopupWindow {
+  position: relative;
+  display: inline-block;
+  z-index: 1000;
+  border: 8px solid #575757;
+  background: whitesmoke;
+  right: -2rem;
+}
+
+.PopupWindowTitleBar {
+  font-size: 1.5rem;
+  line-height: 2.4rem;
+  height: 3rem;
+  color: white;
+  background: #575757;
+  cursor: pointer;
+}
+.PopupWindowTitleBar span {
+  user-select: none;
+  pointer-events: none;
+}
