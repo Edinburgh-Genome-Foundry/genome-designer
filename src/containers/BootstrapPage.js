@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import styles from '../styles/BootstrapPage.css';
 import withStyles from '../decorators/withStyles';
 import PopupWindow from '../components/PopupWindow/PopupWindow';
+import MenuBar from '../components/Menu/MenuBar';
 import Menu from '../components/Menu/Menu';
 import MenuItem from '../components/Menu/MenuItem';
 import MenuSeparator from '../components/Menu/MenuSeparator';
@@ -71,25 +72,40 @@ class BootstrapPage extends Component {
           {login}
         </div>
         <br></br>
-        <div className="btn-toolbar">
+        <MenuBar menus={[
 
           <Menu title="File" menuItems={[
             <MenuItem text="Account" onClick={this.onMenuItem}></MenuItem>,
             <MenuItem text="Profile" onClick={this.onMenuItem}></MenuItem>,
-            <MenuSeparator ref="sep1"></MenuSeparator>,
+            <MenuSeparator></MenuSeparator>,
             <MenuItem text="Sign Out" onClick={this.onMenuItem}></MenuItem>
-          ]}></Menu>
+          ]}></Menu>,
 
           <Menu title="Edit" menuItems={[
             <MenuItem text="Cut" onClick={this.onMenuItem}></MenuItem>,
             <MenuItem text="Copy" onClick={this.onMenuItem}></MenuItem>,
             <MenuItem text="Paste" onClick={this.onMenuItem}></MenuItem>,
-            <MenuSeparator ref="sep2"></MenuSeparator>,
+            <MenuSeparator></MenuSeparator>,
             <MenuItem text="Delete" onClick={this.onMenuItem}></MenuItem>,
             <MenuItem text="Select All" onClick={this.onMenuItem}></MenuItem>
+          ]}></Menu>,
+
+          <Menu title="View" menuItems={[
+            <MenuItem text="Always Show Bookmarks Bar" onClick={this.onMenuItem}></MenuItem>,
+            <MenuSeparator></MenuSeparator>,
+            <MenuItem text="Stop" onClick={this.onMenuItem}></MenuItem>,
+            <MenuItem text="Force Reload Page" onClick={this.onMenuItem}></MenuItem>,
+            <MenuSeparator></MenuSeparator>,
+            <MenuItem text="Enter Presentation Mode" onClick={this.onMenuItem}></MenuItem>,
+            <MenuItem text="Enter Full Screen" onClick={this.onMenuItem}></MenuItem>,
+            <MenuItem text="Zoom In" onClick={this.onMenuItem}></MenuItem>,
+            <MenuItem text="Zoom Out" onClick={this.onMenuItem}></MenuItem>,
+            <MenuSeparator></MenuSeparator>,
+            <MenuItem text="Encoding" onClick={this.onMenuItem}></MenuItem>,
+            <MenuItem text="Developer" onClick={this.onMenuItem}></MenuItem>
           ]}></Menu>
 
-        </div>
+        ]}></MenuBar>
       </div>
     );
   }

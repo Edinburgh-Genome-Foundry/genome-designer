@@ -1,6 +1,19 @@
+.menu-bar {
+  display: inline-block;
+}
 .menu-dropdown {
   display: inline-block;
   position: relative;
+}
+.menu-header {
+  display: inline-block;
+  border-bottom: 2px solid transparent;
+  height: 4rem;
+  padding: 1rem;
+  cursor: pointer;
+}
+.menu-header-open {
+  border-bottom: 4px solid dodgerblue;
 }
 
 .menu-dropdown-container {
@@ -22,7 +35,6 @@
   background: transparent;
   color: black;
   font-size: 1.33rem;
-  font-weight: 300;
   line-height: 2rem;
   height: 2rem;
   cursor:pointer;
