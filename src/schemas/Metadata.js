@@ -20,7 +20,7 @@ const MetadataDefinition = new SchemaDefinition({
     'Semantic version of Instance'
   ],
   tags       : [
-    fields.object().required,
+    fields.object(),
     'Dictionary of tags defining object'
   ]
 });

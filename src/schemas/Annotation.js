@@ -21,7 +21,7 @@ const AnnotationDefinition = new SchemaDefinition({
     'Description of annotation'
   ],
   tags       : [
-    fields.object().required,
+    fields.object(),
     'Dictionary of tags defining annotation'
   ],
   sequence: [

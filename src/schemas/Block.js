@@ -1,6 +1,7 @@
 import fields from './fields';
 import * as validators from './fields/validators';
 import InstanceDefinition from './Instance';
+import AnnotationDefinition from './Annotation';
 
 /**
  @name BlockDefinition
@@ -25,26 +26,26 @@ export const enumRoles = [
 ];
 
 const BlockDefinition = InstanceDefinition.extend({
-  template: [
-    fields.id(),
-    `Reference to another Block to use as a template (i.e. validation, component rules)`
-  ],
+  
   // placeholder for block-level validation.
   // todo - define structure
   rules     : [
     fields.shape({
       type  : validators.string(),
       params: validators.object()
-    }).required,
-    `Grammar/rules governing the whole Block`
+    }),
+    'Grammar/rules governing the whole Block'
   ],
   //todo - define structure. May want to make own Definition.
-  components: [
-    fields.arrayOf(validators.shape({
-      rules: validators.object(),
-      options: validators.arrayOf(validators.id())
-    })).required,
-    `Array of Blocks/Parts (and their rules) of which this Block is comprised`
+  subcomponents: [
+    fields.arrayOf(validators.id(), {required: true}).required,
+    'Array of Blocks/Parts (and their rules) of which this Block is comprised'
+  ],
+  source: [
+    fields.shape({
+      part  : validators.id().required
+    }),
+    'the part and annotation that is represented by this block'
   ]
 });
 
