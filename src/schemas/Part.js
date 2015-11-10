@@ -2,6 +2,8 @@ import fields from './fields';
 import * as validators from './fields/validators';
 import InstanceDefinition from './Instance';
 import AnnotationDefinition from './Annotation';
+import BlockDefinition from './Block';
+
 
 /**
  @name PartDefinition
@@ -9,7 +11,7 @@ import AnnotationDefinition from './Annotation';
  Represents a physical sequence, sourced from an Inventory
  */
 
-const PartDefinition = InstanceDefinition.extend({
+const PartDefinition = BlockDefinition.extend({
   sequence  : [
     fields.id(),
     'ID of the associated Sequence (not the sequence itself)'

@@ -40,12 +40,6 @@ const BlockDefinition = InstanceDefinition.extend({
   subcomponents: [
     fields.arrayOf(validators.id(), {required: true}).required,
     'Array of Blocks/Parts (and their rules) of which this Block is comprised'
-  ],
-  source: [
-    fields.shape({
-      part  : validators.id().required
-    }),
-    'the part and annotation that is represented by this block'
   ]
 });
 
