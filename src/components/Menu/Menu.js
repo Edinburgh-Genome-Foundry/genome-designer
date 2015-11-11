@@ -18,7 +18,8 @@ export default class Menu extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpen: false
+      isOpen: false,
+      highlight: false
     }
   }
 
@@ -34,8 +35,10 @@ export default class Menu extends Component {
   open = () => {
     this.props.parentMenuBar.menuOpening(this);
     this.setState({
-      isOpen: true
+      isOpen: true,
+      highlight: true
     });
+    document.addEventListener('click', this.documentClick);
   }
 
   /**
@@ -44,8 +47,19 @@ export default class Menu extends Component {
   close = () => {
     this.props.parentMenuBar.menuClosing(this);
     this.setState({
-      isOpen: false
+      isOpen: false,
+      highlight: false
     });
+    document.removeEventListener('click', this.documentClick);
+  }
+
+  /**
+   * we monitor document clicks when open so we can close ourselves if
+   * a click outside the element occurs
+   * @return {[type]} [description]
+   */
+  documentClick = () => {
+    this.close();
   }
 
   /**
@@ -65,6 +79,21 @@ export default class Menu extends Component {
    */
   mouseOver = () => {
     this.props.parentMenuBar.mouseOverMenu(this);
+    // we always highlight regardless of whether we will open
+    this.setState({
+      highlight: true,
+    });
+  }
+
+  /**
+   * unhighlight if not open
+   */
+  mouseLeave = () => {
+    if (!this.state.isOpen) {
+      this.setState({
+        highlight: false,
+      });
+    }
   }
 
   /**
@@ -80,12 +109,18 @@ export default class Menu extends Component {
     </div> : null;
 
     // prepare class to reflect open / closed state
-    var klassName = this.state.isOpen ? "menu-header menu-header-open" : "menu-header";
+    var klassName = this.state.isOpen || this.state.highlight ? "menu-header menu-header-open" : "menu-header";
 
     // render the menu drop down and header and optionally the child items
     return (
-      <div className="menu-dropdown" onClick={this.toggle} onMouseOver={this.mouseOver}>
-        <div className={klassName} onClick={this.toggle}>{this.props.title}</div>
+      <div
+        className="menu-dropdown"
+        onClick={this.toggle}
+        onMouseOver={this.mouseOver}
+        onMouseLeave={this.mouseLeave}>
+        <div
+          className={klassName}
+          onClick={this.toggle}>{this.props.title}</div>
         {container}
       </div>
     );
