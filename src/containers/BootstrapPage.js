@@ -13,6 +13,7 @@ import withStyles from '../decorators/withStyles';
 import PopupWindow from '../components/PopupWindow/PopupWindow';
 import MenuBar from '../components/Menu/MenuBar';
 import Menu from '../components/Menu/Menu';
+import SubMenu from '../components/Menu/SubMenu';
 import MenuItem from '../components/Menu/MenuItem';
 import MenuSeparator from '../components/Menu/MenuSeparator';
 import Login from '../components/Login';
@@ -256,7 +257,7 @@ class BootstrapPage extends Component {
                 this.onMenuItem
               } > </MenuItem>, < MenuItem text = "Force Reload Page" onClick = {
                 this.onMenuItem
-              } > </MenuItem>, < MenuSeparator > </MenuSeparator>, < MenuItem text = "Enter Presentation Mode" onClick = {
+              } > </MenuItem>, < MenuSeparator > </MenuSeparator>, < MenuItem text = "Enter Presentation Mode A Very Long Menu Item" onClick = {
                 this.onMenuItem
               } > </MenuItem>, < MenuItem text = "Enter Full Screen" onClick = {
                 this.onMenuItem
@@ -266,7 +267,13 @@ class BootstrapPage extends Component {
                 this.onMenuItem
               } > </MenuItem>, < MenuSeparator > </MenuSeparator>, < MenuItem text = "Encoding" onClick = {
                 this.onMenuItem
-              } > </MenuItem>, < MenuItem text = "Developer" onClick = {
+              } > <SubMenu menuItems={[
+                <MenuItem text="One" onClick={this.onMenuItem}></MenuItem>,
+                <MenuItem text="Two" onClick={this.onMenuItem}></MenuItem>,
+                <MenuItem text="Three" onClick={this.onMenuItem}></MenuItem>
+                ]}></SubMenu>
+
+             </MenuItem>, < MenuItem checked={true} text = "Developer" onClick = {
                 this.onMenuItem
               } > </MenuItem>
             ]

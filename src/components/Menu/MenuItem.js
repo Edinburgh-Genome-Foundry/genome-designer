@@ -1,8 +1,10 @@
-import React, { Component, PropTypes } from 'react';
+import React, {
+  Component,
+  PropTypes
+} from 'react';
 
 import styles from '../../styles/Menu.css';
 import withStyles from '../../decorators/withStyles';
-
 
 @withStyles(styles)
 /**
@@ -15,18 +17,21 @@ import withStyles from '../../decorators/withStyles';
  */
 export default class MenuItem extends Component {
 
-  constructor(props) {
+  constructor (props) {
     super(props);
   }
 
   static propTypes = {
-    text      : PropTypes.string.isRequired,
-    onClick   : PropTypes.func.isRequired
+    text: PropTypes.string.isRequired,
+    onClick: PropTypes.func.isRequired
   }
 
-  render() {
+  render () {
+    let checkmark = <span className="menu-item-check">{this.props.checked ? '✓' :'' }</span>;
     return (
-      <div className="menu-item" onClick={this.props.onClick}>{this.props.text}</div>
+      <div className="menu-item" onClick={this.props.onClick}>{checkmark}{this.props.text}
+        {this.props.children}
+      </div>
     );
   }
 }

@@ -26,12 +26,31 @@
   box-shadow: 2px 2px 11px -2px rgba(82,82,82,1);
   min-width: 20rem;
 }
+
+.submenu-position {
+  display: inline-block;
+  vertical-align: top;
+  position: absolute;
+  left: 100%;
+  top: calc(-0.5rem - 1px);
+}
+.menu-submenu-dropdown-container {
+  position: absolute;
+  z-index: 1000;
+  border: 1px solid #ddd;
+  background: white;
+  box-shadow: 2px 2px 11px -2px rgba(82,82,82,1);
+  min-width: 20rem;
+}
+
+
 .menu-dropdown-container hr {
   margin-top: 1rem;
   margin-bottom: 1rem;
   border-top: 1px solid #ddd;
 }
 .menu-item {
+  position: relative;
   background: transparent;
   color: black;
   font-size: 1.33rem;
@@ -39,11 +58,17 @@
   height: 2rem;
   cursor:pointer;
   margin-top: 0.5rem;
-  padding: 0 1rem 0 1rem;
+  padding-right: 2rem;
+  white-space: nowrap;
 }
 .menu-item:hover {
   background: #ddd;
 }
 .menu-item:last-child {
   margin-bottom: 0.5rem;
+}
+.menu-item-check {
+  display: inline-block;
+  text-align: center;
+  width: 2.5rem;
 }

@@ -120,7 +120,8 @@ export default class Menu extends Component {
         onMouseLeave={this.mouseLeave}>
         <div
           className={klassName}
-          onClick={this.toggle}>{this.props.title}</div>
+          onClick={this.toggle}>{this.props.title}
+        </div>
         {container}
       </div>
     );
