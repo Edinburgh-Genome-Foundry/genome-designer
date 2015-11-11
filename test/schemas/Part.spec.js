@@ -3,7 +3,7 @@ import PartDefinition from '../../src/schemas/Part';
 
 var uuid = require('uuid');
 
-describe('AnnotationDefinition', () => {
+describe('PartDefinition', () => {
 
   it('should validate (case 1)', () => {
 
