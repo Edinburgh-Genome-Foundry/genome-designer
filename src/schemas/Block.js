@@ -12,6 +12,7 @@ import AnnotationDefinition from './Annotation';
 
 //SBOL has a field called role, particularly in defining modules. We may want to add this later. For now, this annotation can be a role per-component.
 export const enumRoles = [
+
   //SBOL
   'Promoter',
   'RBS',
@@ -22,24 +23,54 @@ export const enumRoles = [
   'mRNA',
 
   //others
-  'placeholder'
+  'placeholder',
 ];
 
+//todo - better define structure
+const ruleShape = validators.shape({
+  type: validators.string(),
+  params: validators.object(),
+});
+
+const annotationShape = validators.shape({
+  //todo - define structure
+});
+
 const BlockDefinition = InstanceDefinition.extend({
-  
-  // placeholder for block-level validation.
-  // todo - define structure
-  rules     : [
+  /*
+   Part-like fields for sequence and sequence annotations, inventory source
+   */
+  sequence: [
     fields.shape({
-      type  : validators.string(),
-      params: validators.object()
+      id: validators.id(),
+      annotations: validators.array(annotationShape),
     }),
-    'Grammar/rules governing the whole Block'
+    `ID of the associated Sequence (not the sequence itself), and list of Annotations associated`,
   ],
-  //todo - define structure. May want to make own Definition.
-  subcomponents: [
-    fields.arrayOf(validators.id(), {required: true}).required,
-    'Array of Blocks/Parts (and their rules) of which this Block is comprised'
+  source: [
+    fields.shape({
+      id: validators.id(),
+      existsAsPart: validators.bool(),
+    }),
+    `Source (Inventory) ID of the Part`,
+  ],
+
+  rules: [
+    fields.arrayOf(ruleShape),
+    `Grammar/rules governing the whole Block`,
+  ],
+
+  components: [
+    fields.arrayOf(validators.shape({
+      rules: ruleShape,
+      options: validators.arrayOf(validators.id()),
+    })).required,
+    `Array of Blocks (and their rules) of which this Block is comprised`,
+  ],
+
+  notes: [
+    fields.arrayOf(validators.string()),
+    `Notes about the whole Block`,
   ]
 });
 

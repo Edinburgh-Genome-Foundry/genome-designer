@@ -26,32 +26,32 @@ import safeValidate from './safeValidate';
  *   baseValidator:  {Function} base validation function, pre-parameterized
  * }
  */
-export default function createFieldType (baseFieldDefinition, type) {
-  let fieldDef = Object.assign({
-    type
+export default function createFieldType(baseFieldDefinition, type) {
+  const fieldDef = Object.assign({
+    type,
   }, baseFieldDefinition);
 
-  return function validatorAwaitingParams (validationParams) {
-    let { baseValidator } = fieldDef,
-        definedValidator = baseValidator(validationParams);
+  return function validatorAwaitingParams(validationParams) {
+    const { baseValidator } = fieldDef;
+    const definedValidator = baseValidator(validationParams);
 
-    let opt      = createFieldFromValidator(fieldDef, definedValidator, false);
+    const opt = createFieldFromValidator(fieldDef, definedValidator, false);
     opt.required = createFieldFromValidator(fieldDef, definedValidator, true);
 
     return opt;
   };
 }
 
-function createFieldFromValidator (fieldDefinition, definedValidator, required) {
+function createFieldFromValidator(fieldDefinition, definedValidator, required) {
   return Object.assign({},
     fieldDefinition,
     {
       validate: wrapValidator(definedValidator, required),
-      isRequired: required
+      isRequired: required,
     }
   );
 }
 
-function wrapValidator (validator, required = false) {
+function wrapValidator(validator, required = false) {
   return safeValidate.bind(null, validator, required);
 }

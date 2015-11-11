@@ -3,6 +3,9 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 
 class DashboardPage extends Component {
+  static propTypes = {
+    user: PropTypes.object,
+  };
 
   render() {
     return (
@@ -16,7 +19,9 @@ class DashboardPage extends Component {
 }
 
 function mapStateToProps(state) {
-  return {};
+  return {
+    user: state.user,
+  };
 }
 
 export default connect(mapStateToProps)(DashboardPage);

@@ -51,6 +51,7 @@ function withStyles(styles) {
         if (typeof styles.use !== 'function' && process.env.NODE_ENV !== 'production') {
           throw new Error(`The style-loader must be configured with reference-counted API.`);
         }
+
         styles.use();
       } else {
         this.context.onInsertCss(styles.toString());

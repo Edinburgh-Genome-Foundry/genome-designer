@@ -7,28 +7,28 @@ import withStyles from '../decorators/withStyles';
 
 @withStyles(styles)
 export default class SketchBlock extends Component {
-
-  static PropTypes = {
-    block: PropTypes.object.isRequired //once using real ones, can pass schema as PropType
+  static propTypes = {
+    block: PropTypes.object.isRequired, //once using real ones, can pass schema as PropType
   }
 
-  render () {
-    const {block} = this.props;
+  render() {
+    const { block } = this.props;
 
     return isPart(block)
       ?
            <SketchPart key={block.id}
                        part={block}/>
       :
-           <div className="SketchBlock" ref="blockGroup">
+           <div className="SketchBlock"
+                ref="blockGroup">
              {block.components.map(comp => {
                return (<SketchBlock key={comp.id}
-                                    block={comp}/>)
+                                    block={comp}/>);
              })}
            </div>;
   }
 }
 
-function isPart (component) {
-  return component && (!component.components || component.components.length === 1);
+function isPart(component) {
+  return component && (!component.components || !component.components.length);
 }

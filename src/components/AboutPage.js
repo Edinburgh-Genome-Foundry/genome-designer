@@ -1,14 +1,9 @@
-import React, { PropTypes, Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 
-export default class AboutPage extends Component {
-  static propTypes = {}
-
-  render () {
-    return (
-      <div>
-        <h1>About Genome Designer</h1>
-      </div>
-    );
-  }
+export default function AboutPage(props) {
+  return (
+    <div>
+      <h1>About Page</h1>
+    </div>
+  );
 }

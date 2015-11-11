@@ -1,5 +1,4 @@
 import fields from './fields';
-import * as validators from './fields/validators';
 import InstanceDefinition from './Instance';
 
 /**
@@ -11,29 +10,31 @@ import InstanceDefinition from './Instance';
 
 export const enumType = [
   'dna',        //IUPAC DNA
-  'protein', 		//IUPAC Protein
-  'molecule' 		//SMILES
+  'protein',    //IUPAC Protein
+  'molecule',   //SMILES
 ];
 
 const SequenceDefinition = InstanceDefinition.extend({
   type: [
     fields.oneOf(enumType).required,
-    `Type of sequence, as defined in ${enumType.join(', ')}, to determine valid monomers}`
+    `Type of sequence, as defined in ${enumType.join(', ')}, to determine valid monomers}`,
   ],
+
   //todo - define. placeholders? rules? need schema-level validation based on type
-  sequence     : [
+  sequence: [
     fields.sequence().required,
-    `String representing monomers of the sequence`
+    `String representing monomers of the sequence`,
   ],
-  length : [
+  length: [
     fields.number(),
-    `Length of the sequence (calculated on the server)`
+    `Length of the sequence (calculated on the server)`,
   ],
+
   //default is forward (true)
   orientForward: [
     fields.bool(),
-    ``
-  ]
+    ``,
+  ],
 });
 
 export default SequenceDefinition;

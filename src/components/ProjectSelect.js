@@ -5,13 +5,9 @@ import withStyles from '../decorators/withStyles';
 
 @withStyles(styles)
 export default class ProjectSelect extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   static propTypes = {
     value: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
   };
 
   componentWillReceiveProps(nextProps) {
@@ -31,13 +27,13 @@ export default class ProjectSelect extends Component {
     this.refs.input.value = val;
   }
 
-  handleKeyUp = (e) => {
-    if (e.keyCode === 13) {
+  handleKeyUp = (event) => {
+    if (event.keyCode === 13) {
       this.handleGoClick();
     }
   }
 
-  handleGoClick =() => {
+  handleGoClick = (event) => {
     this.props.onChange(this.getInputValue());
   }
 
@@ -49,10 +45,12 @@ export default class ProjectSelect extends Component {
                className="ProjectSelect-input"
                placeholder="Enter Project ID (dev)"
                defaultValue={this.props.value}
-               onKeyUp={this.handleKeyUp} />
+               onKeyUp={this.handleKeyUp}/>
         {/* <button onClick={this.handleGoClick}>
-          Go!
-        </button> */}
+         Go!
+         </button> *//* <button onClick={this.handleGoClick}>
+         Go!
+         </button> */}
       </div>
     );
   }

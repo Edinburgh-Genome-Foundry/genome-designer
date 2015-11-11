@@ -14,9 +14,18 @@ describe('BlockDefinition', () => {
       id: uuid.v4(),
       metadata: {
         authors: [],
-        version: "0.0.0"
+        version: "0.0.0",
+        tags: {}
       },
-      subcomponents: [uuid.v4()]
+      components: [
+        {
+          options: [uuid.v4()]
+        },
+        {
+          rules: {},
+          options: [uuid.v4()]
+        }
+      ]
     }));
   });
 });

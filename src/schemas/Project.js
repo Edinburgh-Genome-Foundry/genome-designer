@@ -10,14 +10,14 @@ import InstanceDefinition from './Instance';
 */
 
 const ProjectDefinition = InstanceDefinition.extend({
-  constructs: [
+  components: [
     fields.arrayOf(validators.id()).required,
-    'Constructs associated with this project'
+    `Constructs associated with this project`,
   ],
   settings: [
     fields.object(),
-    'Settings associated with this project'
-  ]
+    `Settings associated with this project`,
+  ],
 });
 
 export default ProjectDefinition;

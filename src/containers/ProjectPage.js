@@ -2,9 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { pushState } from 'redux-router';
-import { block_create } from '../actions/blocks';
-import { project_addConstruct } from '../actions/projects';
-import range from '../utils/array/range';
+import { blockCreate } from '../actions/blocks';
+import { projectAddConstruct } from '../actions/projects';
 
 import SketchConstruct from './SketchConstruct';
 import ProjectHeader from '../components/ProjectHeader';
@@ -15,46 +14,48 @@ import withStyles from '../decorators/withStyles';
 @withStyles(styles)
 export class ProjectPage extends Component {
   static propTypes = {
-    project             : PropTypes.object.isRequired,
-    projectId           : PropTypes.string.isRequired,
-    constructId         : PropTypes.string, //only visible if a construct is selected
-    block_create        : PropTypes.func.isRequired,
-    project_addConstruct: PropTypes.func.isRequired,
-    pushState           : PropTypes.func.isRequired,
+    constructs: PropTypes.array.isRequired,
+    project: PropTypes.object.isRequired,
+    projectId: PropTypes.string.isRequired,
+    constructId: PropTypes.string, //only visible if a construct is selected
+
+    children: PropTypes.func, //react-router
+    blockCreate: PropTypes.func.isRequired,
+    projectAddConstruct: PropTypes.func.isRequired,
+    pushState: PropTypes.func.isRequired,
   }
 
-  handleClickAddConstruct = (e) => {
-    let { projectId, block_create, project_addConstruct } = this.props,
-        construct = block_create(),
-        constructId = construct.id;
+  handleClickAddConstruct = (event) => {
+    const { projectId, blockCreate, projectAddConstruct } = this.props;
+    const construct = blockCreate();
+    const constructId = construct.id;
 
-    project_addConstruct(projectId, constructId);
+    projectAddConstruct(projectId, constructId);
   }
 
-  handleClickFromInventory = (e) => {
+  handleClickFromInventory = (event) => {
     //todo
-    alert('inventory forthcoming...');
   }
 
-  render () {
+  render() {
     const { children, projectId, constructId, project, constructs } = this.props;
 
     //todo - need error handling here. Should be in route transition probably?
     //right now there is some handling in GlobalNav when using ProjectSelect. Doesn't handle request of the URL.
     if (!project || !project.metadata) {
-      alert('ProjectPage - handle no project in state');
+      return <p>todo - need to handle this (direct request)</p>;
     }
 
-    let constructSelected = !!constructId;
+    const constructSelected = !!constructId;
 
     return (
       <div className="ProjectPage">
         <ProjectHeader project={project}/>
 
-        {/* if viewing specific construct, let routing take over*/}
+        {/* if viewing specific construct, let routing take over*//* if viewing specific construct, let routing take over*/}
         {constructSelected && children}
 
-        {/* otherwise, show all the constructs... */}
+        {/* otherwise, show all the constructs... *//* otherwise, show all the constructs... */}
         {!constructSelected && constructs.map(construct => {
           return (
             <div key={construct.id}>
@@ -66,7 +67,7 @@ export class ProjectPage extends Component {
 
               <SketchConstruct construct={construct}/>
             </div>
-          )
+          );
         })}
 
         <div className="ProjectPage-actions">
@@ -86,10 +87,10 @@ export class ProjectPage extends Component {
   }
 }
 
-function mapStateToProps (state) {
-  const { projectId, constructId } = state.router.params,
-        project = state.projects[projectId],
-        constructs = project.components.map(componentId => state.blocks[componentId]);
+function mapStateToProps(state) {
+  const { projectId, constructId } = state.router.params;
+  const project = state.projects[projectId];
+  const constructs = project.components.map(componentId => state.blocks[componentId]);
 
   return {
     projectId,
@@ -100,7 +101,7 @@ function mapStateToProps (state) {
 }
 
 export default connect(mapStateToProps, {
-  block_create,
-  project_addConstruct,
+  blockCreate,
+  projectAddConstruct,
   pushState,
 })(ProjectPage);

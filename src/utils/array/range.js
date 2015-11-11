@@ -1,10 +1,10 @@
 /**
  * Creates an n-length array whose values are numeric indices
- * @param n
- * @returns {Array<number>} array with n elements, where each element is its index
+ * @param number
+ * @returns {Array<number>} array with `number` elements, where each element is its index
  */
-export default function range (n) {
-  //Function treats holes as undefined, while Array.map skips uninitialized values
-  let arr = Array.apply(null, new Array(n));
-  return arr.map(function (x, i) { return i });
+export default function range(number) {
+  // Function treats holes as undefined, while Array.map skips uninitialized values
+  const arr = Array.apply(null, new Array(number));
+  return arr.map(function rangeReplacer(value, index) { return index; });
 }

@@ -1,5 +1,6 @@
 import fields from './fields';
-import * as validators from './fields/validators';
+
+// import * as validators from './fields/validators';
 import SchemaDefinition from './SchemaDefinition';
 
 /**
@@ -8,22 +9,24 @@ import SchemaDefinition from './SchemaDefinition';
  Information about user's last session
  */
 
-//todo - what else do we need? What cannot be captured in the URL?
+// todo - what else do we need? What cannot be captured in the URL?
 
 const UserSessionDefinition = new SchemaDefinition({
-  id   : [
+  id: [
     fields.id().required
-      `ID of UserSession`
+      `ID of UserSession`,
   ],
-  //Let UserDefinition Specify?
-  user : [
+
+  // Let UserDefinition Specify?
+  user: [
     fields.id().required,
-    `Associated User`
+    `Associated User`,
   ],
+
   state: [
     fields.object(),
-    `Actual information about User Session state`
-  ]
+    `Actual information about User Session state`,
+  ],
 });
 
 export default UserSessionDefinition;

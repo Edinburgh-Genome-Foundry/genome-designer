@@ -15,7 +15,7 @@ import SupportPage from './components/SupportPage';
 export default (
   <Route path="/" component={App}>
 
-    {/* todo - signout page w/ dynamic routing */}
+    {/* todo - signout page w/ dynamic routing *//* todo - signout page w/ dynamic routing */}
 
     <IndexRoute component={DashboardPage}/>
 

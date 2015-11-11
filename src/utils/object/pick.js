@@ -10,6 +10,7 @@ export default function pick(obj, fn) {
     if (fn(obj[key])) {
       result[key] = obj[key];
     }
+
     return result;
   }, {});
 }

@@ -1,0 +1,7 @@
+{
+  "preset": "airbnb",
+  "esnext" : true,
+  "requireCamelCaseOrUpperCaseIdentifiers": null,
+  "requirePaddingNewLinesBeforeLineComments" : null,
+  "validateQuoteMarks" : null //pending JSX support, e.g. https://github.com/jscs-dev/node-jscs/pull/1962
+}

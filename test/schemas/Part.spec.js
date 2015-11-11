@@ -1,5 +1,5 @@
 import assert from 'assert';
-import PartDefinition from '../../src/schemas/Part';
+import BlockDefinition from '../../src/schemas/Block';
 
 var uuid = require('uuid');
 
@@ -10,13 +10,24 @@ describe('PartDefinition', () => {
     //todo - should we be generating this?
     let id = 'f47ac10b-58cc-4372-a567-0e02b2c3d479';
 
-    assert(PartDefinition.validate({
+    assert(BlockDefinition.validate({
       id: uuid.v4(),
       metadata: {
         authors: [],
-        version: "0.0.0"
+        version: "0.0.0",
+        tags: {}
       },
-      subcomponents: []
+      sequence: uuid.v4(),
+      source: uuid.v4(),
+      components: [
+        {
+          options: [uuid.v4()]
+        },
+        {
+          rules: {},
+          options: [uuid.v4()]
+        }
+      ]
     }));
   });
 });

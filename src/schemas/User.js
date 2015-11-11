@@ -5,41 +5,40 @@ import SchemaDefinition from './SchemaDefinition';
 /**
  @name UserDefinition
  @description A user account
-
 */
 
 const UserDefinition = new SchemaDefinition({
-  id         : [
+  id: [
     fields.id().required,
-    `ID of the User`
+    `ID of the User`,
   ],
-  email      : [
+  email: [
     fields.email().required,
-    `User's Email Address`
+    `User's Email Address`,
   ],
-  firstName  : [
+  firstName: [
     fields.string(),
-    `First name of user`
+    `First name of user`,
   ],
-  lastName   : [
+  lastName: [
     fields.string(),
-    `Last name of user`
+    `Last name of user`,
   ],
   description: [
     fields.string(),
-    `Short biography of the user`
+    `Short biography of the user`,
   ],
-  homepage   : [
+  homepage: [
     fields.url(),
-    `URL of personal page`
+    `URL of personal page`,
   ],
-  social     : [
+  social: [
     fields.arrayOf(validators.shape({
       provider: validators.string(),
-      username: validators.string()
+      username: validators.string(),
     })),
-    `List of social media accounts`
-  ]
+    `List of social media accounts`,
+  ],
 });
 
 export default UserDefinition;

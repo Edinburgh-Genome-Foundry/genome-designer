@@ -15,7 +15,7 @@ import semverRegex from 'semver-regex';
 
 export const id = params => input => {
   //todo - real validation
-  let regex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+  const regex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
   if (!regex.test(input)) {
     return new Error(`${input} is not a RFC4122-compliant UUID`);
   }
@@ -31,14 +31,17 @@ export const number = params => input => {
   if (!isNumber(input)) {
     return new Error(`input ${input} is not a number`);
   }
+
   if (isRealObject(params)) {
     if (params.min && input < params.min) {
       return new Error(`input ${input} is less than minimum ${params.min}`);
     }
+
     if (params.max && input > params.max) {
       return new Error(`input ${input} is greater than maximum ${params.max}`);
     }
   }
+
   return null;
 };
 
@@ -76,13 +79,13 @@ export const undef = params => input => {
  string subtypes
  *******/
 
-             //todo - should support all IUPAC with option to limit
+//todo - should support all IUPAC with option to limit
 export const sequence = params => input => {
   if (!isString(input)) {
     return new Error(`${input} is not a string`);
   }
 
-  let sequenceRegex = /^[acgt]*$/ig;
+  const sequenceRegex = /^[acgt]*$/ig;
 
   if (!sequenceRegex.test(input)) {
     return new Error(`${input} is not a valid sequence`);
@@ -95,7 +98,7 @@ export const email = params => input => {
     return new Error(`${input} is not a string`);
   }
 
-  let emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+  const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
   if (!emailRegex.test(input)) {
     return new Error(`${input} is not a valid email`);
@@ -146,12 +149,12 @@ export const shape = (fields, {required = false} = {}) => input => {
     return new Error(`shape ${fields} is not an object`);
   }
 
-  let checker = (key) => {
-    safeValidate(fields[key], key, input[key])
+  const checker = (key) => {
+    return safeValidate(fields[key], required, input[key]);
   };
 
   if (!Object.keys(fields).every(checker)) {
-    return new Error(`input ${input} passed to arrayOf did not pass validation`);
+    return new Error(`input ${JSON.stringify(input)} passed to shape did not pass validation`);
   }
 };
 
@@ -161,7 +164,7 @@ export const oneOf = possible => input => {
   }
 
   if (possible.indexOf(input) < 0) {
-    return new Error(input + ` not found in ` + possible.join(`,`));
+    return new Error(input + ' not found in ' + possible.join(','));
   }
 };
 
@@ -171,14 +174,14 @@ export const oneOfType = (types, {required = false} = {}) => input => {
     return new Error(`possible types ${types} for oneOfType not an array`);
   }
 
-  let checker = type => {
+  const checker = type => {
     return isFunction(type) ?
            safeValidate(type, required, input) :
            input instanceof type;
   };
 
   if (!types.some(checker)) {
-    return new Error(`input ${input} passed to oneOfType not found in ${types}`)
+    return new Error(`input ${input} passed to oneOfType not found in ${types}`);
   }
 };
 
@@ -198,45 +201,48 @@ export const arrayOf = (validator, {required = false} = {}) => input => {
 
 //utils
 
-function isString (input) {
-  return getPropType(input) === `string` || input instanceof String;
+function isString(input) {
+  return getPropType(input) === 'string' || input instanceof String;
 }
 
-function isRealObject (input) {
-  return input !== null && getPropType(input) === `object`;
+function isRealObject(input) {
+  return input !== null && getPropType(input) === 'object';
 }
 
-function isNumber (input) {
-  return getPropType(input) === `number`;
+function isNumber(input) {
+  return getPropType(input) === 'number';
 }
 
-function isFunction (input) {
-  return getPropType(input) === `function`;
+function isFunction(input) {
+  return getPropType(input) === 'function';
 }
 
 // Equivalent of `typeof` but with special handling for array and regexp.
-function getPropType (propValue) {
-  var propType = typeof propValue;
+function getPropType(propValue) {
+  const propType = typeof propValue;
   if (Array.isArray(propValue)) {
-    return `array`;
+    return 'array';
   }
+
   if (propValue instanceof RegExp) {
-    // Old webkits (at least until Android 4.0) return `function` rather than
-    // `object` for typeof a RegExp.
-    return `object`;
+    // Old webkits (at least until Android 4.0) return 'function' rather than
+    // 'object' for typeof a RegExp.
+    return 'object';
   }
+
   return propType;
 }
 
 // This handles more types than `getPropType`, e.g. Date and regexp
-function getPreciseType (propValue) {
-  var propType = getPropType(propValue);
-  if (propType === `object`) {
+export function getPreciseType(propValue) {
+  const propType = getPropType(propValue);
+  if (propType === 'object') {
     if (propValue instanceof Date) {
-      return `date`;
+      return 'date';
     } else if (propValue instanceof RegExp) {
-      return `regexp`;
+      return 'regexp';
     }
   }
+
   return propType;
 }

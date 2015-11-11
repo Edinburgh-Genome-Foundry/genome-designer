@@ -8,10 +8,6 @@ import withStyles from '../decorators/withStyles';
 
 @withStyles(styles)
 class App extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   static propTypes = {
     children: PropTypes.node, // Injected by React Router
   }
@@ -33,5 +29,4 @@ function mapStateToProps(state) {
   return {};
 }
 
-export default connect(mapStateToProps, {
-})(App);
+export default connect(mapStateToProps, {})(App);

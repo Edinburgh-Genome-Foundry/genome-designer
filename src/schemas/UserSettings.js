@@ -1,5 +1,6 @@
 import fields from './fields';
-import * as validators from './fields/validators';
+
+// import * as validators from './fields/validators';
 import SchemaDefinition from './SchemaDefinition';
 
 /**
@@ -8,22 +9,23 @@ import SchemaDefinition from './SchemaDefinition';
  Dictionary of persistent user settings
  */
 
-//todo - what else do we need? What cannot be captured in the URL?
+// todo - what else do we need? What cannot be captured in the URL?
 
 const UserSettingsDefinition = new SchemaDefinition({
-  id   : [
+  id: [
     fields.id().required
-      `ID of UserSettings`
+      `ID of UserSettings`,
   ],
-  //Let UserDefinition Specify?
-  user : [
+
+  // Let UserDefinition Specify?
+  user: [
     fields.id().required,
-    `Associated User`
+    `Associated User`,
   ],
   state: [
     fields.object(),
-    `Actual information about User Settings`
-  ]
+    `Actual information about User Settings`,
+  ],
 });
 
 export default UserSettingsDefinition;

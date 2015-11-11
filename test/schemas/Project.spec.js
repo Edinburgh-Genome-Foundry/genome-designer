@@ -14,9 +14,10 @@ describe('ProjectDefinition', () => {
       id: uuid.v4(),
       metadata: {
         authors: [],
-        version: "0.0.0"
+        version: "0.0.0",
+        tags: {}
       },
-      constructs: [uuid.v4()]
+      components: [uuid.v4()]
     }));
   });
 });

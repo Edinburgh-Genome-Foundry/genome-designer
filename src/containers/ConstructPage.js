@@ -2,28 +2,27 @@ import React, { Component, PropTypes } from 'react';
 import { pushState } from 'redux-router';
 import { connect } from 'react-redux';
 
-import SketchConstruct from './SketchConstruct'
+import SketchConstruct from './SketchConstruct';
 
 export class ConstructPage extends Component {
-
   static propTypes = {
     constructId: PropTypes.string.isRequired,
-    projectId  : PropTypes.string.isRequired,
-    construct  : PropTypes.object.isRequired,
-    pushState  : PropTypes.func.isRequired,
+    projectId: PropTypes.string.isRequired,
+    construct: PropTypes.object.isRequired,
+    pushState: PropTypes.func.isRequired,
   }
 
   //todo - should probably use proper router hook for this
-  componentWillMount () {
+  componentWillMount() {
     const { projectId, construct } = this.props;
 
     //Check to make sure Construct exists, e.g. if construct has been deleted
     if (!construct) {
-      this.props.pushState(null, `/project/${projectId}`)
+      this.props.pushState(null, `/project/${projectId}`);
     }
   }
 
-  render () {
+  render() {
     const { construct } = this.props;
 
     return (
@@ -36,7 +35,7 @@ export class ConstructPage extends Component {
   }
 }
 
-function mapStateToProps (state) {
+function mapStateToProps(state) {
   const { projectId, constructId } = state.router.params;
 
   //todo - need to check if this exists

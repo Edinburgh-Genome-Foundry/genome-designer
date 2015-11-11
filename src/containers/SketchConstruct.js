@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { part_create } from '../actions/parts';
-import { block_addComponent } from '../actions/blocks';
+import { blockCreate, blockAddComponent } from '../actions/blocks';
 
 import SketchBlock from '../components/SketchBlock';
 
@@ -12,29 +11,28 @@ import SketchBlock from '../components/SketchBlock';
  */
 
 export default class SketchConstruct extends Component {
-
   static propTypes = {
-    construct         : PropTypes.object.isRequired,
-    components        : PropTypes.array.isRequired,
-    block_create      : PropTypes.func.isRequired,
-    block_addComponent: PropTypes.func.isRequired,
+    construct: PropTypes.object.isRequired,
+    components: PropTypes.array.isRequired,
+
+    blockCreate: PropTypes.func.isRequired,
+    blockAddComponent: PropTypes.func.isRequired,
   };
 
-  handleClickAddPart = (e) => {
-    //todo - should support adding blocks, not just parts
-    const { construct , part_create, block_addComponent } = this.props;
-    let block = part_create();
-    block_addComponent(construct.id, block.id);
+  handleClickAddBlock = (event) => {
+    const { construct, blockCreate, blockAddComponent } = this.props;
+    const block = blockCreate();
+    blockAddComponent(construct.id, block.id);
   }
 
-  render () {
-    let { construct, components } = this.props;
+  render() {
+    const { construct, components } = this.props;
 
     return (
       <div ref="constructContainer">
         <div ref="constructTitle"
              className="SketchPart">
-          {construct.metadata.name}
+          {construct.metadata.name || 'My Construct'}
         </div>
         <div ref="constructComponents"
              className="SketchBlock">
@@ -45,17 +43,16 @@ export default class SketchConstruct extends Component {
         </div>
         <div ref="constructActions"
              className="SketchPart"
-             onClick={this.handleClickAddPart}>
-          Add Part
+             onClick={this.handleClickAddBlock}>
+          Add Block
         </div>
       </div>
     );
   }
 }
 
-function mapStateToProps (state, props) {
-  //todo - should not know whether blocks / parts here. Need to handle nesting. Need to update schema with rules / options, and parts are options
-  const components = props.construct.components.map(componentId => state.parts[componentId]);
+function mapStateToProps(state, props) {
+  const components = props.construct.components.map(componentId => state.blocks[componentId]);
 
   return {
     components,
@@ -63,6 +60,6 @@ function mapStateToProps (state, props) {
 }
 
 export default connect(mapStateToProps, {
-  part_create,
-  block_addComponent
+  blockCreate,
+  blockAddComponent,
 })(SketchConstruct);

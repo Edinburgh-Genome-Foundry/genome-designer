@@ -3,25 +3,25 @@ import * as validators from './fields/validators';
 import SchemaDefinition from './SchemaDefinition';
 
 const MetadataDefinition = new SchemaDefinition({
-  name       : [
+  name: [
     fields.string(),
-    'Name of the instance'
+    'Name of the instance',
   ],
   description: [
     fields.string(),
-    'Description of instance'
+    'Description of instance',
   ],
-  authors    : [
+  authors: [
     fields.arrayOf(validators.id(), {required: true}).required,
-    'IDs of authors'
+    'IDs of authors',
   ],
-  version    : [
+  version: [
     fields.version().required,
-    'Semantic version of Instance'
+    'Semantic version of Instance',
   ],
-  tags       : [
-    fields.object(),
-    'Dictionary of tags defining object'
+  tags: [
+    fields.object().required,
+    'Dictionary of tags defining object',
   ]
 });
 

@@ -12,8 +12,8 @@ import InstanceDefinition from './Instance';
 const InventoryDefinition = InstanceDefinition.extend({
   url: [
     fields.url(),
-    `URL that is API endpoint for the Inventory`
-  ]
+    `URL that is API endpoint for the Inventory`,
+  ],
 });
 
 export default InventoryDefinition;

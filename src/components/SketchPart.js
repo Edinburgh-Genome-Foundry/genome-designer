@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { part_rename } from '../actions/parts';
+import { blockRename } from '../actions/blocks';
 
 import SketchPartName from './SketchPartName';
 
@@ -9,22 +9,21 @@ import withStyles from '../decorators/withStyles';
 
 @withStyles(styles)
 export class SketchPart extends Component {
-
-  static PropTypes = {
-    part       : PropTypes.object.isRequired,  //once using real ones, can pass schema as PropType
-    part_rename: PropTypes.func.isRequired
+  static propTypes = {
+    part: PropTypes.object.isRequired,  //once using real ones, can pass schema as PropType
+    blockRename: PropTypes.func.isRequired,
   }
 
-  handleRename = (e) => {
-    let partId  = this.props.part.id,
-        newName = e.target.value;
+  handleRename = (event) => {
+    const partId = this.props.part.id;
+    const newName = event.target.value;
 
-    this.props.part_rename(partId, newName);
+    this.props.blockRename(partId, newName);
   }
 
-  render () {
-    let {part} = this.props,
-        partName = part.metadata.name;
+  render() {
+    const {part} = this.props;
+    const partName = part.metadata.name;
 
     return (
       <div ref="partGroup"
@@ -37,10 +36,10 @@ export class SketchPart extends Component {
   }
 }
 
-function mapStateToProps (state) {
-  return {}
+function mapStateToProps(state) {
+  return {};
 }
 
 export default connect(mapStateToProps, {
-  part_rename
+  blockRename,
 })(SketchPart);

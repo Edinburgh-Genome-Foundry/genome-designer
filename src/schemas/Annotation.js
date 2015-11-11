@@ -1,5 +1,5 @@
 import fields from './fields';
-import * as validators from './fields/validators';
+// import * as validators from './fields/validators';
 import SchemaDefinition from './SchemaDefinition';
 
 /**
@@ -18,24 +18,24 @@ const AnnotationDefinition = new SchemaDefinition({
 
   description: [
     fields.string(),
-    'Description of annotation'
+    'Description of annotation',
   ],
-  tags       : [
-    fields.object(),
-    'Dictionary of tags defining annotation'
+  tags: [
+    fields.object().required,
+    'Dictionary of tags defining annotation',
   ],
   sequence: [
     fields.sequence(),
-    'IUPAC sequence of the annotation'
+    'IUPAC sequence of the annotation',
   ],
-  start   : [
+  start: [
     fields.number({min: 0}),
-    'Location of start of annoation'
+    'Location of start of annoation',
   ],
-  end     : [
+  end: [
     fields.number({min: 0}),
-    'Location of end of annotation'
-  ]
+    'Location of end of annotation',
+  ],
 });
 
 export default AnnotationDefinition;

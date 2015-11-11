@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { pushState } from 'redux-router';
-import { project_create } from '../actions/projects';
+import { projectCreate } from '../actions/projects';
 
 import ProjectSelect from '../components/ProjectSelect';
 
@@ -11,25 +11,21 @@ import withStyles from '../decorators/withStyles';
 
 @withStyles(styles)
 class GlobalNav extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   static propTypes = {
     projects: PropTypes.object.isRequired,
     inputValue: PropTypes.string.isRequired,
-    project_create: PropTypes.func.isRequired,
+    projectCreate: PropTypes.func.isRequired,
     pushState: PropTypes.func.isRequired,
   }
 
   handleChange = (nextValue) => {
-    const { pushState, project_create, projects } = this.props;
+    const { pushState, projectCreate, projects } = this.props;
 
     //todo - this should be run in the project page or route transition, not here
     //note that this relies on projects with name as ID
     let project = projects[nextValue];
     if (!project) {
-      project = project_create(nextValue);
+      project = projectCreate(nextValue);
     }
 
     pushState(null, `/project/${project.id}`);
@@ -38,10 +34,10 @@ class GlobalNav extends Component {
   render() {
     return (
       <div className="GlobalNav">
-          <Link className="GlobalNav-title"
-                to="/">Home</Link>
+        <Link className="GlobalNav-title"
+              to="/">Home</Link>
         <ProjectSelect value={this.props.inputValue}
-                       onChange={this.handleChange} />
+                       onChange={this.handleChange}/>
 
       </div>
     );
@@ -50,12 +46,12 @@ class GlobalNav extends Component {
 
 function mapStateToProps(state) {
   return {
-    projects : state.projects,
-    inputValue: state.router.params.projectId || ''
+    projects: state.projects,
+    inputValue: state.router.params.projectId || '',
   };
 }
 
 export default connect(mapStateToProps, {
   pushState,
-  project_create,
+  projectCreate,
 })(GlobalNav);

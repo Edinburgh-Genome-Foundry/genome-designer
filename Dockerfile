@@ -1,10 +1,9 @@
 FROM ubuntu:14.04
 RUN apt-get update
+RUN apt-get install curl
 
 #Install latest nodejs
-RUN apt-get install -y software-properties-common python-software-properties python g++ make wget
-RUN add-apt-repository ppa:chris-lea/node.js
-RUN apt-get update
+RUN curl -sL https://deb.nodesource.com/setup_4.x | -E bash -
 RUN apt-get install -y nodejs
 
 #Install redis

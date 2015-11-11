@@ -1,23 +1,24 @@
 import * as ActionTypes from '../constants/ActionTypes';
 import makeActionCreator from './makeActionCreator';
 
-import { makeProject } from '../utils/schemaGenerators';
+import Project from '../models/Project';
 
 //create a new project
-export const project_create = (name) => {
+export const projectCreate = (name) => {
   return (dispatch, getState) => {
     //temp - force name as ID. will need to reconfigure routing
-    let project = makeProject(name);
+    const project = new Project(name);
     if (name) {
       project.metadata.name = name;
     }
+
     dispatch({
       type: ActionTypes.PROJECT_CREATE,
-      project
+      project,
     });
     return project;
   };
 };
 
 //Adds a construct to a project. Does not create the construct. Use blocks.js
-export const project_addConstruct = makeActionCreator(ActionTypes.PROJECT_ADD_CONSTRUCT, 'projectId', 'constructId');
+export const projectAddConstruct = makeActionCreator(ActionTypes.PROJECT_ADD_CONSTRUCT, 'projectId', 'constructId');

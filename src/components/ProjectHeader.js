@@ -6,22 +6,22 @@ import withStyles from '../decorators/withStyles';
 
 @withStyles(styles)
 export default class ProjectHeader extends Component {
+  static propTypes = {
+    project: PropTypes.object.isRequired,
+  }
+
   //because we dont need to persist this state, it can exist in the component
   state = {
     detailVisible: false,
   }
 
-  static propTypes = {
-    project: PropTypes.object.isRequired,
-  }
-
-  handleToggleDetail = (e) => {
+  handleToggleDetail = (event) => {
     this.setState({
-      detailVisible: !this.state.detailVisible
+      detailVisible: !this.state.detailVisible,
     });
   }
 
-  render () {
+  render() {
     const { project } = this.props;
 
     return (
@@ -30,17 +30,17 @@ export default class ProjectHeader extends Component {
         <div className="ProjectHeader-info">
           <div className="ProjectHeader-icon"
                style={{
-            backgroundImage: `url(${project.metadata.image})`
-          }}></div>
+                 backgroundImage: `url(${project.metadata.image})`,
+               }}></div>
           <div className="ProjectHeader-text">
             <Link to={`/project/${project.id}`}
-              className="ProjectHeader-title">
+                  className="ProjectHeader-title">
               {project.metadata.name}
             </Link>
             {this.state.detailVisible &&
-              <p className="ProjectHeader-description">
-                {project.metadata.description}
-              </p>
+            <p className="ProjectHeader-description">
+              {project.metadata.description}
+            </p>
             }
           </div>
         </div>
