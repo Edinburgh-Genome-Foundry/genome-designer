@@ -97,9 +97,9 @@ router.get('/project', function (req, resp) {
 
     var proj = get(req.query.id);
     if (ProjectDefinition.validate(proj)) {
-
       result.project = proj;
-      result.blocks = getMulti(proj.constructs);
+      result.blocks = getMulti(proj.components);
+    }
   }
   resp.json(result);
 });
@@ -113,7 +113,8 @@ router.get('/block', function (req, resp) {
     if (BlockDefinition.validate(block)) {
 
       result.block = block;
-      result.blocks = getMulti(proj.subcomponents);
+      result.blocks = getMulti(proj.components);
+    }
   }
   resp.json(result);
 });
