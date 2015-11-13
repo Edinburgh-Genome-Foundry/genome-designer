@@ -71,7 +71,22 @@ proj1 = {
 }
 
 res = PUT(url + "project", data = json(proj1))
-pid = res.json()['id']
+pid1 = res.json()['id']
 
 
-res = GET(url + "project", params = {"id":pid})
+res = GET(url + "project", params = {"id":pid1})
+
+res = POST(url + "clone", params = {"id":pid1})
+pid2 = res.json()['id']
+
+res = POST(url + "clone", params = {"id":pid2})
+pid3 = res.json()['id']
+
+res = POST(url + "clone", params = {"id":pid3})
+pid4 = res.json()['id']
+
+res = GET(url + "project", params = {"id":pid4})
+
+hist = GET(url + "history", params = {"id":pid4})
+
+child = GET(url + "children", params = {"id":pid1})
