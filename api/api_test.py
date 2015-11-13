@@ -1,6 +1,7 @@
-import requests
-import json
-from uuid import uuid4
+from requests import get as GET
+from requests import put as PUT
+from requests import post as POST
+from json import dumps as json
 
 url = "http://localhost:3000/api/"
 
@@ -21,10 +22,10 @@ block2 = {
 }
 
 
-res = requests.put(url + "block", data = json.dumps(block1))
+res = PUT(url + "block", data = json(block1))
 id1 = res.json()['id']
 
-res = requests.put(url + "block", data = json.dumps(block2))
+res = PUT(url + "block", data = json(block2))
 id2 = res.json()['id']
 
 block3 = {
@@ -51,10 +52,10 @@ block4 = {
   ]
 }
 
-res = requests.put(url + "block", data = json.dumps(block3))
+res = PUT(url + "block", data = json(block3))
 id3 = res.json()['id']
 
-res = requests.put(url + "block", data = json.dumps(block4))
+res = PUT(url + "block", data = json(block4))
 id4 = res.json()['id']
 
 proj1 = {
@@ -69,8 +70,8 @@ proj1 = {
   ]
 }
 
-res = requests.put(url + "project", data = json.dumps(proj1))
+res = PUT(url + "project", data = json(proj1))
 pid = res.json()['id']
 
 
-res = requests.get(url + "project", params = {"id":pid})
+res = GET(url + "project", params = {"id":pid})
