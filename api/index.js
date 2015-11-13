@@ -46,7 +46,7 @@ function get(id) {
     var output = execSync(cmd).stdout;
     if (output.length > 0) {
         try {
-            result = JSON.parse(output);            
+            result = JSON.parse(output);
             result.id = id;
             console.log(result);
         } catch (e) {
@@ -166,6 +166,7 @@ router.get('/children', function (req, resp) {
   var result = {};
   if (req.query.id) {
     result = get(req.query.id+"-children");
+    result.id = req.query.id;
   }
   resp.json(result);
 });
@@ -177,6 +178,7 @@ router.get('/history', function (req, resp) {
   var result = {};
   if (req.query.id) {
     result = get(req.query.id+"-history");
+    result.id = req.query.id;
   }
   resp.json(result);
 });
