@@ -60,12 +60,14 @@ const BlockDefinition = InstanceDefinition.extend({
     `Grammar/rules governing the whole Block`,
   ],
 
+  options: [
+    fields.arrayOf(validators.id()),
+    `Other Blocks that can be substituted in place of this Block`,
+  ],
+
   components: [
-    fields.arrayOf(validators.shape({
-      rules: ruleShape,
-      options: validators.arrayOf(validators.id()),
-    })).required,
-    `Array of Blocks (and their rules) of which this Block is comprised`,
+    fields.arrayOf(validators.id()),
+    `Array of Blocks of which this Block is comprised`,
   ],
 
   notes: [
