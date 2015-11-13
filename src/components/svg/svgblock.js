@@ -6,10 +6,10 @@ var SVGBlock = React.createClass({
   render: function() {
 
     // display metrics
-    const H = 40;     // size of block
-    const W = 100;
+    const H = 20;     // size of block
+    const W = 50;
     const TX = 8;     // x offset of text in block
-    const TY = 28;    // y offset of text in block
+    const TY = 12;    // y offset of text in block
 
     // syntax sugar for our properties
     const B = this.props.block;
@@ -25,9 +25,10 @@ var SVGBlock = React.createClass({
           width={W}
           height={H}
           fill={B.color}
-          strokeWidth={0}>
+          stroke={'gray'}
+          strokeWidth={1}>
         </rect>
-        <text x={X + TX} y={Y + TY} strokeWidth={0} fill="white" fontSize="20px" >{B.text}</text>
+        <text x={X + TX} y={Y + TY} strokeWidth={0} fill="black" fontSize="10px" >{B.text}</text>
       </g>
     )
   }

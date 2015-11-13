@@ -32,7 +32,8 @@ class BootstrapPage extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      loginVisible: false
+      loginVisible: false,
+      store: this.fakeStore()
     }
   }
 
@@ -45,7 +46,9 @@ class BootstrapPage extends Component {
   }
 
   onMenuItem = () => {
-    console.log("Menu Clicked");
+    this.setState({
+      store: this.fakeStore()
+    })
   }
 
   /*
@@ -53,7 +56,41 @@ class BootstrapPage extends Component {
    */
   fakeStore = () => {
 
-    let f = []
+    console.time('Generate Blocks');
+
+    const kMC = 4;
+    const kMD = 15;
+
+    const colors = ['#DBE8C7','#8DA5D2','#FEE798','#E8D1E4','#FEE3BA'];
+
+    let fakeit = (depth) => {
+      if (depth >= kMD) {
+        return;
+      }
+
+      let n = Math.floor(Math.random() * kMC);
+
+      if (depth === 0) {
+        n = Math.max(1, n);
+      }
+
+      const kids = [];
+
+      for(let i = 0; i < n; i += 1) {
+
+          let c = Math.min(colors.length-1, Math.round(Math.random() * colors.length));
+
+          kids.push({
+            text: depth,
+            color: colors[c],
+            children: fakeit(depth + 1),
+          });
+      }
+      return kids;
+    }
+    const r = fakeit(0);
+    console.timeEnd('Generate Blocks');
+    return r;
   }
 
   render () {
@@ -65,135 +102,6 @@ class BootstrapPage extends Component {
     // test color-js
     let c1 = new ColorJS('dodgerblue');
     let c2 = c1.darkenByRatio(0.5);
-
-    let store = [
-      {
-        text: 'Root A',
-        color: 'dodgerblue',
-        x: 0,
-        y: 0,
-        children: [
-          {
-            text: 'L0-A',
-            color: 'firebrick',
-            children: [
-              {
-                text: 'L0-B',
-                color: 'yellow',
-                children: [
-                  {
-                    text: 'L0-C',
-                    color: 'purple',
-                    children: [
-                      {
-                        text: 'PChild-1',
-                        color: 'cyan'
-                      },
-                      {
-                        text: 'Pchild-2',
-                        color: 'green'
-                      }
-                    ]
-                  }
-                ]
-              }, {
-                text: 'L1-B',
-                color: 'orange',
-                children: [
-                  {
-                    text: 'L2-C',
-                    color: 'orchid'
-                  }, {
-                    text: 'ABC',
-                    color: 'lightgreen'
-                  }, {
-                    text: 'XYZ',
-                    color: 'goldenrod'
-                  }
-                ]
-              }, {
-                text: 'L2-B',
-                color: 'peru',
-                children: [
-                  {
-                    text: 'peru-c1',
-                    color: 'darkseagreen',
-                    children: [
-                      {
-                        text: 'peru-c2',
-                        color: 'orange'
-                      },
-                      {
-                        text: 'peru-c3',
-                        color: 'chocolate'
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        text: 'Root B',
-        color: 'dodgerblue',
-        x: 0,
-        y: 0,
-        children: [
-          {
-            text: 'L0-A',
-            color: 'firebrick',
-            children: [
-              {
-                text: 'L0-B',
-                color: 'yellow',
-                children: [
-                  {
-                    text: 'L0-C',
-                    color: 'purple',
-                    children: [
-                      {
-                        text: 'PChild-1',
-                        color: 'cyan'
-                      },
-                      {
-                        text: 'Pchild-2',
-                        color: 'green'
-                      }
-                    ]
-                  }
-                ]
-              }, {
-                text: 'L1-B',
-                color: 'orange',
-                children: [
-                  {
-                    text: 'L2-C',
-                    color: 'orchid'
-                  }, {
-                    text: 'ABC',
-                    color: 'lightgreen'
-                  }, {
-                    text: 'XYZ',
-                    color: 'goldenrod'
-                  }
-                ]
-              }, {
-                text: 'L2-B',
-                color: 'peru',
-                children: [
-                  {
-                    text: 'peru-c1',
-                    color: 'darkseagreen'
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ];
 
     return (
       <div className="container">
@@ -268,19 +176,19 @@ class BootstrapPage extends Component {
               } > </MenuItem>, < MenuSeparator > </MenuSeparator>, < MenuItem text = "Encoding" onClick = {
                 this.onMenuItem
               } > <SubMenu menuItems={[
-                <MenuItem text="One" onClick={this.onMenuItem}></MenuItem>,
-                <MenuItem text="Two" onClick={this.onMenuItem}></MenuItem>,
-                <MenuItem text="Three" onClick={this.onMenuItem}></MenuItem>
-                ]}></SubMenu>
-
-             </MenuItem>, < MenuItem checked={true} text = "Developer" onClick = {
-                this.onMenuItem
-              } > </MenuItem>
+                < MenuItem text = "One" onClick = {
+                  this.onMenuItem
+                } > </MenuItem>, < MenuItem text = "Two" onClick = {
+                  this.onMenuItem
+                } > </MenuItem>, < MenuItem text = "Three" onClick = {
+                  this.onMenuItem
+                } > </MenuItem>
+              ]}></SubMenu> < /MenuItem>, < MenuItem checked={true} text = "Developer" onClick = { this.onMenuItem } > </MenuItem >
             ]
           } > </Menu>
         ]}></MenuBar>
         <br></br>
-        <SVGSurface store={store} ref="svgSurface" width={1000} height={600}/>
+        <SVGSurface store={this.state.store} ref="svgSurface" width={1000} height={16000}/>
       </div>
     );
   }

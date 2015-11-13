@@ -13,8 +13,8 @@ var SVGSurface = React.createClass({
   render: function() {
 
     // dimensions of blocks
-    const W = 100;
-    const H = 40;
+    const W = 50;
+    const H = 20;
 
     // layout the blocks using a depth first traversal
     let blocks = [];
@@ -35,7 +35,7 @@ var SVGSurface = React.createClass({
         let y2 = y + H / 2;
 
         lines.push(
-          <line x1={x1} y1={y1} x2={x2} y2={y2} strokeWidth={2} stroke="black"></line>
+          <line x1={x1} y1={y1} x2={x2} y2={y2} strokeWidth={2} stroke="lightgray"></line>
         )
       }
 
@@ -60,9 +60,11 @@ var SVGSurface = React.createClass({
     });
 
     // render the blocks
+    console.time('Gather Blocks');
     let blockElements = blocks.map(block => {
       return <SVGBlock block={block}/>;
     });
+    console.timeEnd('Gather Blocks');
 
     // render the SVG and all the blocks in our properties starting with the root
     return (
