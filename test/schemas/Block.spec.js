@@ -7,8 +7,18 @@ describe('BlockDefinition', () => {
 
   it('should validate (case 1)', () => {
 
-    //todo - should we be generating this?
-    let id = 'f47ac10b-58cc-4372-a567-0e02b2c3d479';
+    assert(BlockDefinition.validate({
+      id: uuid.v4(),
+      metadata: {
+        authors: [],
+        version: "0.0.0",
+        tags: {}
+      },
+      components: [ uuid.v4(), uuid.v4() ]      
+    }));
+  });
+
+  it('should validate (case 2)', () => {
 
     assert(BlockDefinition.validate({
       id: uuid.v4(),
@@ -17,15 +27,7 @@ describe('BlockDefinition', () => {
         version: "0.0.0",
         tags: {}
       },
-      components: [
-        {
-          options: [uuid.v4()]
-        },
-        {
-          rules: {},
-          options: [uuid.v4()]
-        }
-      ]
+      options: [ uuid.v4(), uuid.v4() ]      
     }));
   });
 });

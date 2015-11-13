@@ -3,7 +3,7 @@ RUN apt-get update
 RUN apt-get install curl
 
 #Install latest nodejs
-RUN curl -sL https://deb.nodesource.com/setup_4.x | -E bash -
+RUN curl --silent --location https://deb.nodesource.com/setup_4.x | sudo bash -
 RUN apt-get install -y nodejs
 
 #Install redis

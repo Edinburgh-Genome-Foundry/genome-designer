@@ -19,15 +19,7 @@ describe('PartDefinition', () => {
       },
       sequence: uuid.v4(),
       source: uuid.v4(),
-      components: [
-        {
-          options: [uuid.v4()]
-        },
-        {
-          rules: {},
-          options: [uuid.v4()]
-        }
-      ]
+      components: [ uuid.v4() ]
     }));
   });
 });

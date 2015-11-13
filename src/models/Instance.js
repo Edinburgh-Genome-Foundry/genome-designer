@@ -1,7 +1,7 @@
-import uuid from '../utils/generators/uuid';
+var uuid = require("uuid");
 
 export default class Instance {
-  constructor(forceId = uuid()) {
+  constructor(forceId = uuid.v4()) {
     Object.assign(this, {
       id: forceId,
       metadata: {
