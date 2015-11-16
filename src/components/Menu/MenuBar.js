@@ -1,8 +1,6 @@
-import React, { Component, PropTypes } from 'react';
-
+import React, { Component, PropTypes, cloneElement } from 'react';
 import styles from '../../styles/Menu.css';
 import withStyles from '../../decorators/withStyles';
-import cloneWithProps from 'react-addons-clone-with-props';
 
 @withStyles(styles)
 /**
@@ -63,7 +61,7 @@ export default class MenuBar extends Component {
     return (
       <div className="menu-bar">
         {this.props.menus.map( (menu) => {
-          return cloneWithProps(menu, {parentMenuBar: this});
+          return cloneElement(menu, {parentMenuBar: this});
         })}
       </div>
     );

@@ -25,6 +25,7 @@
   "dependencies": {
     "bootstrap": "^3.3.5",
     "bootstrap-webpack": "0.0.5",
+    "color-js": "^1.0.3",
     "exports-loader": "^0.6.2",
     "extract-text-webpack-plugin": "^0.8.2",
     "file-loader": "^0.8.4",
