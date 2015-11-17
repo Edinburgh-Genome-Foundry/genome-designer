@@ -19,6 +19,12 @@ export default class Node2D extends Component {
   constructor (props) {
     super(props);
     this.uuid = uuid.v4();
+    this.children = [];
+  }
+
+  addChild(child) {
+    this.children.push(child);
+    this.forceUpdate();
   }
 
   render () {
@@ -56,6 +62,7 @@ export default class Node2D extends Component {
         {glyph}
         <NodeText2D text={this.props.text} width={this.props.w} height={this.props.h}/>
         {this.props.children}
+        {this.children}
       </div>
     );
   }

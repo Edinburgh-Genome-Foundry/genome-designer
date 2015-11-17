@@ -28,6 +28,7 @@ export default class RootNode2D extends Node2D {
     return (
       <div style={style} className="node" ref={this.uuid}>
         {this.props.children}
+        {this.children}
       </div>
     );
   }
