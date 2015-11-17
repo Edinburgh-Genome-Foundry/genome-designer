@@ -18,12 +18,47 @@ export default class Node2D extends Component {
    */
   constructor (props) {
     super(props);
+
+    /**
+     * every node has a unique uuid, necessary for persistence among other
+     * useful operations.
+     * @type {String}
+     */
     this.uuid = uuid.v4();
+
+    /**
+     * not to be confused with this.props.children which is opaque and immutable
+     * by our code.
+     * @type {Array}
+     */
     this.children = [];
   }
 
-  addChild(child) {
+  /**
+   * register the node with the scene graph when mounted
+   */
+  componentDidMount() {
+    this.props.sceneGraph.registerNode(this);
+  }
+
+  /**
+   * unregister with scene graph when unmounted
+   * @return {[type]} [description]
+   */
+  componentWillUnmount() {
+    this.props.sceneGraph.unRegisterNode(this);
+  }
+
+
+  addNode(child) {
     this.children.push(child);
+    this.forceUpdate();
+  }
+
+  removeNode(child) {
+    const index = this.children.indexOf(child);
+    invariant(index >= 0, 'child is not nodes child');
+    this.children.splice(index, 1);
     this.forceUpdate();
   }
 
@@ -56,13 +91,15 @@ export default class Node2D extends Component {
       transform: m2d.toCSSString()
     }
 
+    // merge declarative children with programmtic children
+    const progeny = React.Children.toArray().concat(this.children);
+
     // render DIV with transform, then our glyph, then our text, then our children
     return (
       <div style={style} className="node" ref={this.uuid}>
         {glyph}
         <NodeText2D text={this.props.text} width={this.props.w} height={this.props.h}/>
-        {this.props.children}
-        {this.children}
+        {progeny}
       </div>
     );
   }

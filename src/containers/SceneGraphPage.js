@@ -35,28 +35,35 @@ class SceneGraphPage extends Component {
     this.forceUpdate();
   }
 
-  onAddRectangle () {
-    this.sg.root.addChild(
-      <Node2D text="Child" fill="dodgerblue" x={Math.random() * 400} y={Math.random() * 400} w={200} h={100} glyph="rectangle"/>
+  onAddRectangle = () => {
+    this.sg.addNode(
+      <Node2D sceneGraph={this.sg} text="Child" fill="dodgerblue" x={Math.random() * 400} y={Math.random() * 400} w={200} h={100} glyph="rectangle"/>
     );
   }
 
-  onAddEllipse () {
-    this.sg.root.addChild(
-      <Node2D text="Child" fill="firebrick" x={Math.random() * 400} y={Math.random() * 400} w={200} h={100} glyph="ellipse"/>
+  onAddEllipse = () => {
+    this.sg.addNode(
+      <Node2D sceneGraph={this.sg} text="Child" fill="firebrick" x={Math.random() * 400} y={Math.random() * 400} w={200} h={100} glyph="ellipse"/>
     );
+  }
+
+  onRemove = () => {
+    const i = Math.floor(Math.random() * this.sg.root.children.length);
+    this.sg.root.removeNode(this.sg.root.children[i]);
   }
 
   render () {
     return (
       <div>
-        <SceneGraph2D ref="sceneGraph" w="800px" h="600px" zoom={this.state.zoom}/>
+        <SceneGraph2D ref="sceneGraph" w="800px" h="600px" zoom={this.state.zoom} />
         <br></br>
         <input ref="zoomSlider" type="range" min={0.2} max={4} step={0.01} onChange={this.onZoom.bind(this)}/>
         <br></br>
-        <button onClick={this.onAddRectangle.bind(this)}>Add Rectangle</button>
+        <button onClick={this.onAddRectangle}>Add Rectangle</button>
         <br></br>
-        <button onClick={this.onAddEllipse.bind(this)}>Add Ellipse</button>
+        <button onClick={this.onAddEllipse}>Add Ellipse</button>
+        <br></br>
+        <button onClick={this.onRemove}>Remove</button>
       </div>
     );
   }
