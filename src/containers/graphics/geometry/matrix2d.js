@@ -1,6 +1,6 @@
-import invariant from '../../utils/environment/invariant';
-import {isRealNumber, isOne, isZero, deg2rad, rad2deg} from './utils';
-import Vector2D from './Vector2D';
+import invariant from '../../../utils/environment/invariant';
+import {isRealNumber, isOne, isZero, deg2rad, rad2deg} from '../utils';
+import Vector2D from './vector2d';
 
 export default class Matrix2D {
 

@@ -1,4 +1,4 @@
-import invariant from '../../utils/environment/invariant';
+import invariant from '../../../utils/environment/invariant';
 
 export default class Intersection2D {
   /**

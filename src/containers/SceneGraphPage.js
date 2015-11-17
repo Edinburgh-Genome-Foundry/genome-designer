@@ -10,7 +10,7 @@ import {
 } from 'react-redux';
 import styles from '../styles/SceneGraphPage.css';
 import withStyles from '../decorators/withStyles';
-import SceneGraph2D from './graphics/SceneGraph2D';
+import SceneGraph2D from './graphics/scenegraph2d/scenegraph2d';
 
 /**
  * just for testing bootstrap, hence the lack of comments
@@ -21,7 +21,7 @@ class SceneGraphPage extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      zoom: 1
+      zoom: 1,
     }
   }
 

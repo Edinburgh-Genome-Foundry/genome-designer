@@ -1,8 +1,8 @@
-import invariant from '../../utils/environment/invariant';
+import invariant from '../../../utils/environment/invariant';
 import React, { Component, PropTypes } from 'react';
-import Node2D from './Node2d.js';
-import Vector2D from './Vector2d.js';
-import RootNode2D from './RootNode2d.js';
+import Vector2D from '../geometry/vector2d.js';
+import Node2D from './node2d.js';
+import RootNode2D from './rootnode2d.js';
 
 export default class SceneGraph2D extends React.Component {
 

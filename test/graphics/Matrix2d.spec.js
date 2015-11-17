@@ -1,6 +1,6 @@
-import Vector2D from '../../src/containers/graphics/Vector2d';
-import Transform2D from '../../src/containers/graphics/Transform2d';
-import Matrix2D from '../../src/containers/graphics/Matrix2d';
+import Vector2D from '../../src/containers/graphics/geometry/vector2d';
+import Transform2D from '../../src/containers/graphics/geometry/transform2d';
+import Matrix2D from '../../src/containers/graphics/geometry/matrix2d';
 import {nearly} from '../../src/containers/graphics/utils';
 import chai from 'chai';
 

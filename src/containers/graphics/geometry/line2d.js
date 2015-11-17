@@ -1,6 +1,6 @@
-import invariant from '../../utils/environment/invariant';
-import Vector2D from './Vector2D';
-import Intersection2D from './Intersection2d';
+import invariant from '../../../utils/environment/invariant';
+import Vector2D from './vector2d';
+import Intersection2D from './intersection2d';
 
 //shallow hasOwnProperty check
 const hasProp = (obj, prop) => {

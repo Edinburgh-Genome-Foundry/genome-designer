@@ -38,18 +38,3 @@ export const isZero = (v) => {
 export const nearly = (v, K) => {
   return Math.abs(v - K) < 1e-6;
 };
-
-/**
- * return true is obj's constructor is one of the givens constructors
- * @param  {object} obj
- * @param  {function} classes
- * @return {boolean}
- */
-export const isA = (obj, classes) => {
-  for (let i = 1; i < arguments.length; i += 1) {
-    if (obj.constructor === arguments[i]) {
-      return true;
-    }
-  }
-  return false;
-};

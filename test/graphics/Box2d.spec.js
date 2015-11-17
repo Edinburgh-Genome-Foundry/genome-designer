@@ -1,5 +1,5 @@
-import Box2D from '../../src/containers/graphics/Box2d';
-import Vector2D from '../../src/containers/graphics/Vector2d';
+import Box2D from '../../src/containers/graphics/geometry/box2d';
+import Vector2D from '../../src/containers/graphics/geometry/vector2d';
 import {nearly} from '../../src/containers/graphics/utils';
 import chai from 'chai';
 

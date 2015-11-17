@@ -1,6 +1,6 @@
-import invariant from '../../utils/environment/invariant';
-import { isRealNumber, deg2rad, rad2deg } from './utils';
-import Line2D from './Line2D';
+import invariant from '../../../utils/environment/invariant';
+import { isRealNumber, deg2rad, rad2deg } from '../utils';
+import Line2D from './line2D';
 /**
  * a 2D Vector/Point
  */

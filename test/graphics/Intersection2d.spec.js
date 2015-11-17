@@ -1,5 +1,5 @@
-import Intersection2D from '../../src/containers/graphics/Intersection2d';
-import Vector2D from '../../src/containers/graphics/Vector2d';
+import Intersection2D from '../../src/containers/graphics/geometry/intersection2d';
+import Vector2D from '../../src/containers/graphics/geometry/vector2d';
 import chai from 'chai';
 
 describe('Intersection2D', () => {

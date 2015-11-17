@@ -1,6 +1,6 @@
-import invariant from '../../utils/environment/invariant';
-import Vector2D from './Vector2D';
-import Line2D from './Line2d';
+import invariant from '../../../utils/environment/invariant';
+import Vector2D from './vector2d';
+import Line2D from './line2d';
 
 export default class Box2D {
   /**

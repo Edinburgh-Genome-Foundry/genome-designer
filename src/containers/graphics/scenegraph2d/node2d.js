@@ -1,10 +1,10 @@
-import invariant from '../../utils/environment/invariant';
+import invariant from '../../../utils/environment/invariant';
 import React, { Component, PropTypes } from 'react';
 import uuid from 'node-uuid';
-import Transform2D from './Transform2d';
-import Matrix2D from './Matrix2d';
-import Vector2D from './Vector2d';
-import NodeText2D from './NodeText2d.js';
+import Transform2D from '../geometry/transform2d';
+import Matrix2D from '../geometry/matrix2d';
+import Vector2D from '../geometry/vector2d';
+import NodeText2D from './nodetext2d.js';
 
 export default class Node2D extends Component {
 
