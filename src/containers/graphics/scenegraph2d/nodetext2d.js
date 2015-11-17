@@ -4,7 +4,7 @@ import uuid from 'node-uuid';
 import Transform2D from '../geometry/transform2d';
 import Node2D from './node2d.js';
 
-export default class Node2DText extends Node2D {
+export default class Node2DText extends Component {
 
   /**
    * base class

@@ -5,14 +5,13 @@
   border: 1px solid lightgray;
 }
 .sceneGraph {
-
+  /*ase node type in scene graph*/
   .node {
     position: absolute;
     display: inline-block;
     transform-origin: 0 0;
-    background-color: red;
   }
-
+  /*text overlay for nodes*/
   .nodetext {
     position: absolute;
     left: 50%;
@@ -21,5 +20,9 @@
     transform: translate(-50%, -50%);
     text-align: center;
   }
-
+  /*base class for html based glyph*/
+  .html-glyph {
+    position: absolute;
+    display: inline-block;
+  }
 }
