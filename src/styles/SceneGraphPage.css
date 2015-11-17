@@ -1,0 +1,25 @@
+.sceneGraph {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  border: 1px solid lightgray;
+}
+.sceneGraph {
+
+  .node {
+    position: absolute;
+    display: inline-block;
+    transform-origin: 0 0;
+    background-color: red;
+  }
+
+  .nodetext {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    display: inline-block;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+}
