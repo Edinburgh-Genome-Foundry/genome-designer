@@ -49,7 +49,10 @@
     "redux-router": "1.0.0-beta3",
     "redux-thunk": "^0.1.0",
     "semver-regex": "^1.0.0",
-    "url-regex": "^3.0.0"
+    "url-regex": "^3.0.0",
+    "combokeys": "^2.4.3",
+    "jquery":"^2.1.4",
+    "react-props-decorators": ""
   },
   "devDependencies": {
     "autoprefixer": "^6.0.3",

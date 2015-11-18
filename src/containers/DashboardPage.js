@@ -13,6 +13,7 @@ class DashboardPage extends Component {
         <h1>Dashboard</h1>
 
         <p>Why don't you look at the Project <Link to="/project/test">Test</Link>?</p>
+        <p><Link to="/plugin_test/onion">Onion Plugin test Page</Link></p>
       </div>
     );
   }
