@@ -8,10 +8,7 @@ export default class SceneGraph2D extends React.Component {
 
   constructor(props) {
     super(props);
-    /**
-     * maps the uuid of nodes currently in the scene to their respective nodes
-     */
-    this.uuid2node = {};
+    this.nodeSet = new Set();
   }
 
   get root() {
@@ -24,8 +21,8 @@ export default class SceneGraph2D extends React.Component {
    * @param  {Node2D} node
    */
   registerNode(node) {
-    invariant(!this.uuid2node[node.uuid], 'the node is already registered');
-    this.uuid2node[node.uuid] = node;
+    invariant(!this.nodeSet.has(node), 'node already registered');
+    this.nodeSet.add(node);
   }
 
   /**
@@ -34,8 +31,8 @@ export default class SceneGraph2D extends React.Component {
    * @return {[type]}      [description]
    */
   unRegisterNode(node) {
-    invariant(this.uuid2node[node.uuid], 'the node is not registered');
-    delete this.uuid2node[node.uuid];
+    invariant(!this.nodeSet.has(node), 'node not registered');
+    this.nodeSet.delete(node);
   }
 
   /**
@@ -49,6 +46,23 @@ export default class SceneGraph2D extends React.Component {
     // immediate parent is either the given node or the root node
     const progenitor = parent || this.root;
     progenitor.addNode(node);
+
+  }
+
+  /**
+   * perform a depth first traversal of the scene graph invoking the callback
+   * for each node encountered.
+   * NOTE: The root node is the starting point, but is not included in the callback
+   * @param  {Function} callback [description]
+   * @return {[type]}            [description]
+   */
+  traverse(callback) {
+      let stack = [this.root];
+      while (stack.length) {
+        const next = stack.pop();
+        callback(next);
+        stack = stack.concat(next.progeny);
+      }
   }
 
   render() {

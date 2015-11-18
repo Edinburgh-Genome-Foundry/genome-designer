@@ -3,7 +3,6 @@ import React, {
   Component,
   PropTypes
 } from 'react';
-import uuid from 'node-uuid';
 import Transform2D from '../geometry/transform2d';
 import Matrix2D from '../geometry/matrix2d';
 import Vector2D from '../geometry/vector2d';
@@ -20,18 +19,14 @@ export default class Node2D extends Component {
     super(props);
 
     /**
-     * every node has a unique uuid, necessary for persistence among other
-     * useful operations.
-     * @type {String}
-     */
-    this.uuid = uuid.v4();
-
-    /**
      * not to be confused with this.props.children which is opaque and immutable
      * by our code.
      * @type {Array}
      */
     this.children = [];
+    this.state = {
+      blongo: 'duncan'
+    }
   }
 
   /**
@@ -49,17 +44,33 @@ export default class Node2D extends Component {
     this.props.sceneGraph.unRegisterNode(this);
   }
 
-
+  /**
+   * add a child node to this node
+   * @param {[type]} child [description]
+   */
   addNode(child) {
     this.children.push(child);
     this.forceUpdate();
   }
 
+  /**
+   * remove an extant child from this node
+   * @param  {[type]} child [description]
+   * @return {[type]}       [description]
+   */
   removeNode(child) {
     const index = this.children.indexOf(child);
     invariant(index >= 0, 'child is not nodes child');
     this.children.splice(index, 1);
     this.forceUpdate();
+  }
+
+  /**
+   * concatenates our declarative children with our programmtic children
+   * @return {[Node2D]} All My Children (c) ABC
+   */
+  get progeny() {
+    return React.Children.toArray().concat(this.children);
   }
 
   render () {
@@ -91,15 +102,12 @@ export default class Node2D extends Component {
       transform: m2d.toCSSString()
     }
 
-    // merge declarative children with programmtic children
-    const progeny = React.Children.toArray().concat(this.children);
-
     // render DIV with transform, then our glyph, then our text, then our children
     return (
-      <div style={style} className="node" ref={this.uuid}>
+      <div style={style} className="node">
         {glyph}
         <NodeText2D text={this.props.text} width={this.props.w} height={this.props.h}/>
-        {progeny}
+        {this.progeny}
       </div>
     );
   }
@@ -111,5 +119,5 @@ Node2D.defaultProps = {
   y: 0,
   w: 0,
   h: 0,
-  r: 0
+  r: 0,
 }

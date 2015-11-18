@@ -37,19 +37,43 @@ class SceneGraphPage extends Component {
 
   onAddRectangle = () => {
     this.sg.addNode(
-      <Node2D sceneGraph={this.sg} text="Child" fill="dodgerblue" x={Math.random() * 400} y={Math.random() * 400} w={200} h={100} glyph="rectangle"/>
+      <Node2D
+        sceneGraph={this.sg}
+        text="Child"
+        fill="dodgerblue"
+        x={Math.random() * 400}
+        y={Math.random() * 400}
+        w={200}
+        h={100}
+        glyph="rectangle"/>
     );
   }
 
   onAddEllipse = () => {
     this.sg.addNode(
-      <Node2D sceneGraph={this.sg} text="Child" fill="firebrick" x={Math.random() * 400} y={Math.random() * 400} w={200} h={100} glyph="ellipse"/>
+      <Node2D
+        sceneGraph={this.sg}
+        text="Child"
+        fill="firebrick"
+        x={Math.random() * 400}
+        y={Math.random() * 400}
+        w={200}
+        h={100}
+        glyph="ellipse"/>
     );
   }
 
   onRemove = () => {
     const i = Math.floor(Math.random() * this.sg.root.children.length);
     this.sg.root.removeNode(this.sg.root.children[i]);
+  }
+
+  onTraverse = () => {
+    console.log('Traversal');
+    this.sg.traverse( node => {
+      debugger;
+      console.log(node);
+    });
   }
 
   render () {
@@ -64,6 +88,8 @@ class SceneGraphPage extends Component {
         <button onClick={this.onAddEllipse}>Add Ellipse</button>
         <br></br>
         <button onClick={this.onRemove}>Remove</button>
+        <br></br>
+        <button onClick={this.onTraverse}>Traverse</button>
       </div>
     );
   }

@@ -1,6 +1,5 @@
 import invariant from '../../../utils/environment/invariant';
 import React, { Component, PropTypes } from 'react';
-import uuid from 'node-uuid';
 import Transform2D from '../geometry/transform2d';
 import Matrix2D from '../geometry/matrix2d';
 import Vector2D from '../geometry/vector2d';
@@ -26,9 +25,8 @@ export default class RootNode2D extends Node2D {
 
     // render
     return (
-      <div style={style} className="node" ref={this.uuid}>
-        {this.props.children}
-        {this.children}
+      <div style={style} className="node">
+        {this.progeny}
       </div>
     );
   }

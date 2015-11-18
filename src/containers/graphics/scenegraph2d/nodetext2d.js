@@ -1,6 +1,5 @@
 import invariant from '../../../utils/environment/invariant';
 import React, { Component, PropTypes } from 'react';
-import uuid from 'node-uuid';
 import Transform2D from '../geometry/transform2d';
 import Node2D from './node2d.js';
 
