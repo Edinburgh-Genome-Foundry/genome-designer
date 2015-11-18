@@ -26,7 +26,6 @@ export default class RootNode2D extends Node2D {
     // render
     return (
       <div style={style} className="node">
-        {this.progeny}
       </div>
     );
   }

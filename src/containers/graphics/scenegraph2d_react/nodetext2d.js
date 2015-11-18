@@ -23,9 +23,3 @@ export default class Node2DText extends Component {
     );
   }
 }
-
-Node2DText.defaultProps = {
-  width: 0,
-  height: 0,
-  text: ''
-}
